@@ -1,7 +1,5 @@
-- [lenet](https://github.com/sujaybabruwad/LeNet-in-Tensorflow/blob/master/LeNet-Lab.ipynb)tf基础函数版
-
-```
-
+- [lenet](https://github.com/sujaybabruwad/LeNet-in-Tensorflow/blob/master/LeNet-Lab.ipynb) tf基础函数版
+- 
 	def LeNet(x):    
 	    # Hyperparameters
 	    mu = 0
@@ -58,12 +56,8 @@
 	    logits = tf.matmul(fc2, fc3_w) + fc3_b
 	    return logits
 
-```
 - [lenet](https://github.com/Zehaos/MobileNet/blob/master/nets/lenet.py) slim集成函数版
 - 
-
-```
-
 	def lenet(images, num_classes=10, is_training=False,
 	          dropout_keep_prob=0.5,
 	          prediction_fn=slim.softmax,
@@ -89,14 +83,9 @@
 	
 	  return logits, end_points
 	lenet.default_image_size = 28
-```
-
 
 - [cifarnet](https://github.com/Zehaos/MobileNet/blob/master/nets/cifarnet.py)带LRN和dropout的FC网络
 - 
-
-```
-
 	def cifarnet(images, num_classes=10,is_training=False,
 	             dropout_keep_prob=0.5,
 	             prediction_fn=slim.softmax,
@@ -136,14 +125,8 @@
 	cifarnet.default_image_size = 32
 
 
-```
-
 - [Alexnet](https://github.com/Zehaos/MobileNet/blob/master/nets/alexnet.py)全卷积结构
 - 
-
-
-```
-
 	with slim.arg_scope([slim.conv2d, slim.fully_connected, slim.max_pool2d],
 	                    outputs_collections=[end_points_collection]):
 	  net = slim.conv2d(inputs, 64, [11, 11], 4, padding='VALID',
@@ -181,9 +164,8 @@
 	  return net, end_points
 	alexnet_v2.default_image_size = 224
 
-```
 - 网络各特征图大小
-
+- 
 	alexnet_v2
 	alexnet_v2/conv1/Relu shape(5, 54, 54, 64)
 	alexnet_v2/pool1/MaxPool shape(5, 26, 26, 64)
@@ -201,8 +183,6 @@
 
 - inception结构，展示代码为[v1](https://github.com/Zehaos/MobileNet/blob/master/nets/inception_v1.py)结构的Mixed_3b层
 -
-
-
        end_point = 'Mixed_3b'
         with tf.variable_scope(end_point):
           with tf.variable_scope('Branch_0'):
