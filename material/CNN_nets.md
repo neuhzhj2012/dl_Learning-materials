@@ -150,11 +150,11 @@
 	                    scope='conv1')
 	  net = slim.max_pool2d(net, [3, 3], 2, scope='pool1')
 	  net = slim.conv2d(net, 192, [5, 5], scope='conv2')
-	  net = slim.max_pool2d(net, [3, 3], 2, scope='pool2')
+	  net = slim.max_pool2d(net, [3, 3], 2, scope='pool2')#注意pool2操作的卷积核大小为3，所以得到的特征图为(26-3)/2+1=12
 	  net = slim.conv2d(net, 384, [3, 3], scope='conv3')
 	  net = slim.conv2d(net, 384, [3, 3], scope='conv4')
 	  net = slim.conv2d(net, 256, [3, 3], scope='conv5')
-	  net = slim.max_pool2d(net, [3, 3], 2, scope='pool5') #注意pool5操作的卷积核大小为3，所以得到的特征图为(26-3)/2+1=12
+	  net = slim.max_pool2d(net, [3, 3], 2, scope='pool5') 
 	
 	  # Use conv2d instead of fully_connected layers.
 	  with slim.arg_scope([slim.conv2d],
