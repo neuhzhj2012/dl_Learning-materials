@@ -150,7 +150,7 @@
 	                    scope='conv1')
 	  net = slim.max_pool2d(net, [3, 3], 2, scope='pool1')
 	  net = slim.conv2d(net, 192, [5, 5], scope='conv2')
-	  net = slim.max_pool2d(net, [3, 3], 2, scope='pool2')#注意pool2操作的卷积核大小为3，所以得到的特征图为(26-3)/2+1=12
+	  net = slim.max_pool2d(net, [3, 3], 2, scope='pool2')#注意pool2操作的卷积核大小为3，默认卷积padding='valid',所以得到的特征图为(26-3)/2+1=12
 	  net = slim.conv2d(net, 384, [3, 3], scope='conv3')
 	  net = slim.conv2d(net, 384, [3, 3], scope='conv4')
 	  net = slim.conv2d(net, 256, [3, 3], scope='conv5')
@@ -182,7 +182,22 @@
 	alexnet_v2.default_image_size = 224
 
 ```
+- 网络各特征图大小
 
+	alexnet_v2
+	alexnet_v2/conv1/Relu shape(5, 54, 54, 64)
+	alexnet_v2/pool1/MaxPool shape(5, 26, 26, 64)
+	alexnet_v2/conv2/Relu shape(5, 26, 26, 192)
+	alexnet_v2/pool2/MaxPool shape(5, 12, 12, 192)
+	alexnet_v2/conv3/Relu shape(5, 12, 12, 384)
+	alexnet_v2/conv4/Relu shape(5, 12, 12, 384)
+	alexnet_v2/conv5/Relu shape(5, 12, 12, 256)
+	alexnet_v2/pool5/MaxPool shape(5, 5, 5, 256)
+	alexnet_v2/fc6/Relu shape(5, 1, 1, 4096)
+	alexnet_v2/dropout6/dropout/mul_1 shape(5, 1, 1, 4096)
+	alexnet_v2/fc7/Relu shape(5, 1, 1, 4096)
+	alexnet_v2/dropout7/dropout/mul_1 shape(5, 1, 1, 4096)
+	alexnet_v2/fc8/BiasAdd shape(5, 1, 1, 1000)
 
 - inception结构，展示代码为[v1](https://github.com/Zehaos/MobileNet/blob/master/nets/inception_v1.py)结构的Mixed_3b层
 -
