@@ -988,8 +988,7 @@
 	inception_v2.default_image_size = 224
 
 - inception_V2网络各特征图大小
-- 
-
+```
 	InceptionV2
 	InceptionV2/InceptionV2/Conv2d_1a_7x7/Relu (5, 112, 112, 64)
 	InceptionV2/InceptionV2/MaxPool_2a_3x3/MaxPool (5, 56, 56, 64)
@@ -1010,4 +1009,5 @@
 	InceptionV2/Logits/Dropout_1b/dropout/mul_1 (5, 1, 1, 1024)
 	InceptionV2/Logits/Conv2d_1c_1x1/BiasAdd (5, 1, 1, 1000)
 	InceptionV2/Logits/SpatialSqueeze (5, 1000)
+```
 
