@@ -199,7 +199,6 @@
           net = tf.concat(axis=3, values=[branch_0, branch_1, branch_2, branch_3])
         end_points[end_point] = net
 - v1的完整结构
-- 
 	def inception_v1_base(inputs,
 	                      final_endpoint='Mixed_5c',
 	                      scope='InceptionV1'):
@@ -468,7 +467,6 @@
 
 
 - inception_V1网络各特征图大小
-- 
 	InceptionV1
 	InceptionV1/InceptionV1/Conv2d_1a_7x7/Relu shape(5, 112, 112, 64)   
 	InceptionV1/InceptionV1/MaxPool_2a_3x3/MaxPool shape(5, 56, 56, 64)   
@@ -499,8 +497,6 @@
 	InceptionV1/Logits/Conv2d_0c_1x1/BiasAdd shape(5, 1, 1, 1000)
 	InceptionV1/Logits/SpatialSqueeze shape(5, 1000)
 - inception结构的[v2](https://github.com/Zehaos/MobileNet/blob/master/nets/inception_v2.py)版本中Mixed_3b层
-- 
-
 	end_point = 'Mixed_3b'
 	with tf.variable_scope(end_point):
 	with tf.variable_scope('Branch_0'):
