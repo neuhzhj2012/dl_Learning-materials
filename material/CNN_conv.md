@@ -1,3 +1,90 @@
+- [deconvolution](https://github.com/tensorflow/tensorflow/blob/r2.0/tensorflow/python/ops/nn_ops.py) deconv只是观念上和传统的conv反向(但是不是更新梯度的反向传播)),传统的conv是从图片生成feature map，而deconv是用unsupervised的方法找到一组kernel和feature map，让它们重建图片;
+- [deconv和conv关系](the actual weight values in the matrix does not have to come from the original convolution matrix. What’s important is that the weight layout is transposed from that of the convolution matrix)conv是多对1，deconv是1对多；位置关联；转置卷积的权重是学出来的;
+```
+the actual weight values in the matrix does not have to come from the original convolution matrix. What’s important is that the weight layout is transposed from that of the convolution matrix
+```
+- [deconv相关介绍](https://www.zhihu.com/question/43609045)
+```
+def conv2d_transpose(
+    value,
+    filter,  # pylint: disable=redefined-builtin
+    output_shape,
+    strides,
+    padding="SAME",
+    data_format="NHWC",
+    name=None):
+  """The transpose of `conv2d`.
+
+  This operation is sometimes called "deconvolution" after [Deconvolutional
+  Networks](http://www.matthewzeiler.com/pubs/cvpr2010/cvpr2010.pdf), but is
+  actually the transpose (gradient) of `conv2d` rather than an actual
+  deconvolution.
+
+  Args:
+    value: A 4-D `Tensor` of type `float` and shape
+      `[batch, height, width, in_channels]` for `NHWC` data format or
+      `[batch, in_channels, height, width]` for `NCHW` data format.
+    filter: A 4-D `Tensor` with the same type as `value` and shape
+      `[height, width, output_channels, in_channels]`.  `filter`'s
+      `in_channels` dimension must match that of `value`.
+    output_shape: A 1-D `Tensor` representing the output shape of the
+      deconvolution op.
+    strides: A list of ints. The stride of the sliding window for each
+      dimension of the input tensor.
+    padding: A string, either `'VALID'` or `'SAME'`. The padding algorithm.
+      See the "returns" section of `tf.nn.convolution` for details.
+    data_format: A string. 'NHWC' and 'NCHW' are supported.
+    name: Optional name for the returned tensor.
+
+  Returns:
+    A `Tensor` with the same type as `value`.
+
+  Raises:
+    ValueError: If input/output depth does not match `filter`'s shape, or if
+      padding is other than `'VALID'` or `'SAME'`.
+  """
+  with ops.name_scope(name, "conv2d_transpose",
+                      [value, filter, output_shape]) as name:
+    if data_format not in ("NCHW", "NHWC"):
+      raise ValueError("data_format has to be either NCHW or NHWC.")
+    value = ops.convert_to_tensor(value, name="value")
+    filter = ops.convert_to_tensor(filter, name="filter")  # pylint: disable=redefined-builtin
+    axis = 3 if data_format == "NHWC" else 1
+    if not value.get_shape().dims[axis].is_compatible_with(
+        filter.get_shape()[3]):
+      raise ValueError("input channels does not match filter's input channels, "
+                       "{} != {}".format(value.get_shape()[axis],
+                                         filter.get_shape()[3]))
+
+    output_shape_ = ops.convert_to_tensor(output_shape, name="output_shape")
+    if not output_shape_.get_shape().is_compatible_with(tensor_shape.vector(4)):
+      raise ValueError("output_shape must have shape (4,), got {}".format(
+          output_shape_.get_shape()))
+
+    if isinstance(output_shape, (list, np.ndarray)):
+      # output_shape's shape should be == [4] if reached this point.
+      if not filter.get_shape().dims[2].is_compatible_with(
+          output_shape[axis]):
+        raise ValueError(
+            "output_shape does not match filter's output channels, "
+            "{} != {}".format(output_shape[axis],
+                              filter.get_shape()[2]))
+
+    if padding != "VALID" and padding != "SAME":
+      raise ValueError("padding must be either VALID or SAME:"
+                       " {}".format(padding))
+
+    return gen_nn_ops.conv2d_backprop_input(
+        input_sizes=output_shape_,
+        filter=filter,
+        out_backprop=value,
+        strides=strides,
+        padding=padding,
+        data_format=data_format,
+        name=name)
+
+```
+
 - [可分离卷积](https://github.com/tensorflow/tensorflow/blob/r2.0/tensorflow/contrib/layers/python/layers/layers.py)
 
 ```
