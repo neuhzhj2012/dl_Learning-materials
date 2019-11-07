@@ -3214,7 +3214,7 @@ def inference(image, keep_prob):
     return tf.expand_dims(annotation_pred, dim=3), conv_t3
 
 ```
-- 网络各特征图大小
+- 网络各特征图大小, 输出通道151表示类别数
 
 ```
 name: input, shape:(5, 224, 224, 3)
@@ -3309,3 +3309,4 @@ name: conv_t2, shape: (5, 42, 28, 256)
 name: fuse_2, shape: (5, 42, 28, 256)
 name: logits, shape: (5, 336, 223, 151)
 ```
+
