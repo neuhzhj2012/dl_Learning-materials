@@ -1,3 +1,16 @@
+- 卷积可视化
+
+1. 特点:以热量图的形式表示数值大小或正确分类的高低
+2. 分类：参数(滤波核)可视化和非参数(特征图)可视化
+3. 作用
+
+```
+观察特征图的响应。如ZFnet根据特征可视化，提出AlexNet第一个卷积层卷积核太大，导致提取到的特征模糊；
+通过每层特征图的变化得到特征演变过程；
+对分类器进行敏感性分析。可通过阻止部分输入图像揭示那部分对分类是重要的；
+诊断模型潜在问题；
+```
+4. [卷积核及特征图可视化参考代码](https://machinelearningmastery.com/how-to-visualize-filters-and-feature-maps-in-convolutional-neural-networks/)
 - [deconvolution](https://github.com/tensorflow/tensorflow/blob/r2.0/tensorflow/python/ops/nn_ops.py) deconv只是观念上和传统的conv反向(但是不是更新梯度的反向传播)),传统的conv是从图片生成feature map，而deconv是用unsupervised的方法找到一组kernel和feature map，让它们重建图片;
 - [deconv和conv关系](the actual weight values in the matrix does not have to come from the original convolution matrix. What’s important is that the weight layout is transposed from that of the convolution matrix)conv是多对1，deconv是1对多；位置关联；转置卷积的权重是学出来的;转置卷积可以得到原来的图像大小，但实际使用中转置卷积核的大小无关紧要，因为转置卷积参数中有输出大小的参数
 ```
