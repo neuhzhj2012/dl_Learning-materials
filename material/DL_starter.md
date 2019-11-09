@@ -38,6 +38,7 @@ The term "batch" is ambiguous: some people use it to designate the entire traini
 - [图网络GNN](https://mp.weixin.qq.com/s/yYJw7gvploiRCTfwmeSwZQ)
 ### 入门教程
 
+- [谈谈python的GIL、多线程、多进程](https://zhuanlan.zhihu.com/p/20953544)
 - [Intuitively Understanding Convolutions for Deep Learning](https://towardsdatascience.com/intuitively-understanding-convolutions-for-deep-learning-1f6f42faee1)
 - [池化层](https://machinelearningmastery.com/pooling-layers-for-convolutional-neural-networks/)
 - [卷积：如何成为一个很厉害的神经网络](https://jizhi.im/blog/post/intuitive_explanation_cnn)
