@@ -1,3 +1,21 @@
+#### 多标签学习
+- 研究内容
+1. 综述文章[2014年A review on multi-label classification learning algorithms](https://www.cnblogs.com/liaohuiqiang/p/9339996.html)
+2. 实现方法：多标签网络的本质是使用Sigmoid activation function替代Softmax激活函数
+- 相关数据集
+1. 数据集。[南京大学包含5类的共2k张图](http://lamda.nju.edu.cn/data_MIMLimage.ashx)
+2. [如何构建自己的数据集](https://datascience.stackexchange.com/questions/26885/multilabel-image-classification-is-it-necessary-to-have-traning-data-for-each-c)
+- [探讨如何在多标签分类问题中考虑标签间的相关性](https://zhuanlan.zhihu.com/p/39535198)
+- 相关项目
+
+1. [基于keras对南京大学数据集的分类教程](https://medium.com/@vijayabhaskar96/multi-label-image-classification-tutorial-with-keras-imagedatagenerator-cd541f8eaf24)
+2. [基于keras的衣服类型和颜色的多分类](https://www.pyimagesearch.com/2018/05/07/multi-label-classification-with-keras/)
+
+```
+A，仅含猫的，仅含狗的，猫狗都有的作为样本集;
+B，仅含猫的，仅含狗的;
+上边两种情况只是正样本的选择方法，负样本的选择为不包含猫狗的图 假如无负样本，则网络会将相似数据分类为猫或狗
+```
 #### 图像模糊算法研究
 1. 出发点。图像模糊研究属于IQA的一部分，也是衡量用户体验(Quality of Experience)的一个关键因素。
 
