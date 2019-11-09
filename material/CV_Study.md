@@ -57,3 +57,46 @@ IQA（Image Quality Assessment）图像质量评价
 
 1. [Blur detection with OpenCV](https://www.pyimagesearch.com/2015/09/07/blur-detection-with-opencv/)
 2. [Mobile Image Blur Detection with Machine Learning](https://medium.com/snapaddy-tech-blog/mobile-image-blur-detection-with-machine-learning-c0b703eab7de)
+#### [图像美学打分](https://www.leiphone.com/news/201712/4Jqh8c9VEymN3Bfw.html)
+- [难点](https://blog.csdn.net/God_68/article/details/81534845)
+1. 不可量化，与物体识别的语义特征相比，人类审美的奥秘还未出现可量化的科学解释，图像美学特征点选取难度较大。
+2. 主观性强，图像美学质量评价除了具备一定的“客观性”（共识性）之外，还具有很强的“主观性”。
+3. 维度多，人类对于图像美感的评价存在多种形式，例如分“美”与“丑”，给出数值评分、语言评价等。
+
+- 相关数据集
+
+1. [AVA](http://academictorrents.com/details/71631f83b11d3d79d8f84efe0a7e12f0ac001460):A Large-Scale Database for Aesthetic Visual Analysis， 2012年，[标签含义](https://github.com/mtobeiyf/ava_downloader/tree/master/AVA_dataset)
+2. [tid2013](http://blog.sina.com.cn/s/blog_4b892b790102vdu3.html),[tid2008, tid2013,CSIQ， LIVE间的差异](https://www.zhihu.com/question/27071105)
+3. AADB（2016年）
+4. PCCD photo critique captioning dataset（2017年）
+5. AROD（multi-useragreements and assemble a large dataset）2018年
+6. AVA-Reviews（2018年）
+
+- 发展历程
+
+1. 基于人工设计美学特征的内容无关的图像美感分类与评分
+2. 基于人工设计美学特征的内容敏感的图像美感分类与评分
+3. 基于深度学习的图像美感分类与评分
+4. 图像美学质量多样化评价
+
+- 细分课题
+
+1. 美感分类。是指给定一幅图像，输出“好”和“不好”或者美学质量“高”或“低”2个类别
+2. 美感评分。给出图像的美学质量评分，表现为一个连续数值；
+3. 美感分布。给出图像的美学质量分数分布直方图
+4. 美学因素。给出图像的光影、配色、构图、模糊、运动、趣味等多个方面的评价；
+5. 美学描述。给出图像美学方面的语言评论
+
+- 解决方案
+
+1. 科技角度。图片质量的评估主要与像素降级相关，比如噪声、模糊、压缩等等
+2. 美学角度。需要根据图片所传达的情感或美感所连接的语义级特征来评判。早期对特定图像(风景照)进行二分类，缺点是二分类不足以表达美的程度且仅能应用于特定领域；NIMA: Neural Image Assessment可应用于一般图像，从直接观感（技术角度）与吸引程度（美学角度）预测人类对图像评估意见的分布。对任意图像都做一个1-10的评分分布，采用不同的函数将图像用美学的标准进行排序；
+3. 实现角度。全参考方法，如PSNR，SSIM等；半参考方法；无参考方法，依赖统计模型来预测图像质量
+
+- 相关项目
+
+1. [美感分类](https://github.com/BestiVictory/ILGnet)
+2. [美感评分](https://github.com/aimerykong/deepImageAestheticsAnalysis)
+3. [图像美学质量评价分数分布预测](https://github.com/BestiVictory/CJS-CNN)
+4. [图像美感语言评论](https://github.com/kunghunglu/DeepPhotoCritic-ICCV17)
+5. [IQA](https://www.learnopencv.com/image-quality-assessment-brisque/)
