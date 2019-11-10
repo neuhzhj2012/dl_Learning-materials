@@ -86,6 +86,7 @@ multi-label cross-entropy loss；
 - [优化算法](https://mp.weixin.qq.com/s/ABI1xtMTaFOqrDJ6MjlYzQ)
 - [人类行为研究进展](https://mp.weixin.qq.com/s/4baaoCCdGX4iTw2MO_Y9rA)
 - [GAN做图像翻译的一些总结](https://mp.weixin.qq.com/s/OZWih_xfqYdeP-x9MawogA)
+- [有三AI不得不看的技术综述](https://zhuanlan.zhihu.com/p/73421235)
 ### 横向对比
 - [分布式框架](https://mp.weixin.qq.com/s/mc2UDI1QOYcbAShPdcN1WA)
 - [优化GAN模型方法](https://mp.weixin.qq.com/s/xpnfhyiKgvgZWwarxHlbEg)
