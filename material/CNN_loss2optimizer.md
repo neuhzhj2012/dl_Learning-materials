@@ -385,7 +385,7 @@ def add_loss(loss, loss_collection=ops.GraphKeys.LOSSES):
   if loss_collection:
     ops.add_to_collection(loss_collection, loss)
 ```
-2. slim的数据加载过程,其中包括[Dataset类](https://github.com/tensorflow/tensorflow/blob/r1.13/tensorflow/contrib/slim/python/slim/data/dataset.py),[DatasetDataProvider类](https://github.com/tensorflow/tensorflow/blob/r1.13/tensorflow/contrib/slim/python/slim/data/dataset_data_provider.py)数据加载过程[imagenet.py](https://github.com/tensorflow/models/blob/ba87e2c6afd383a962f805b290efb0218068d096/research/slim/datasets/imagenet.py)
+2. slim的数据加载过程,其中包括[Dataset类](https://github.com/tensorflow/tensorflow/blob/r1.13/tensorflow/contrib/slim/python/slim/data/dataset.py),[DatasetDataProvider类](https://github.com/tensorflow/tensorflow/blob/r1.13/tensorflow/contrib/slim/python/slim/data/dataset_data_provider.py)数据加载过程[imagenet.py](https://github.com/tensorflow/models/blob/ba87e2c6afd383a962f805b290efb0218068d096/research/slim/datasets/imagenet.py)，其中[TfExampleDecoder](https://github.com/tensorflow/models/blob/fe748d4a4a1576b57c279014ac0ceb47344399c4/research/object_detection/data_decoders/tf_example_decoder.py)负责图片和类别对应的具体解析；
 label文件读取[程序dataset_utils.py](https://github.com/tensorflow/models/blob/master/research/slim/datasets/dataset_utils.py)
 ```
 def get_split(split_name, dataset_dir, file_pattern=None, reader=None):
