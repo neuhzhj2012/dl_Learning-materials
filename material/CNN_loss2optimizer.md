@@ -387,7 +387,7 @@ def add_loss(loss, loss_collection=ops.GraphKeys.LOSSES):
 ```
 2. slim的数据加载过程,其中包括[Dataset类](https://github.com/tensorflow/tensorflow/blob/r1.13/tensorflow/contrib/slim/python/slim/data/dataset.py),[DatasetDataProvider类](https://github.com/tensorflow/tensorflow/blob/r1.13/tensorflow/contrib/slim/python/slim/data/dataset_data_provider.py)数据加载过程[imagenet.py](https://github.com/tensorflow/models/blob/ba87e2c6afd383a962f805b290efb0218068d096/research/slim/datasets/imagenet.py)
 label文件读取[程序dataset_utils.py](https://github.com/tensorflow/models/blob/master/research/slim/datasets/dataset_utils.py)
-'''
+```
 def get_split(split_name, dataset_dir, file_pattern=None, reader=None):
   """Gets a dataset tuple with instructions for reading ImageNet.
 
@@ -465,4 +465,4 @@ def get_split(split_name, dataset_dir, file_pattern=None, reader=None):
       items_to_descriptions=_ITEMS_TO_DESCRIPTIONS,
       num_classes=_NUM_CLASSES,
       labels_to_names=labels_to_names)
-'''
+```
