@@ -497,4 +497,51 @@ def _convert_to_example(filename, image_buffer, label, text, height, width):
       'image/encoded': _bytes_feature(tf.compat.as_bytes(image_buffer))}))
   return example
 ```
+3. 网络的加载过程是通过[nets_factory.py](https://github.com/tensorflow/models/blob/377c5285db605ebd369222b815b86c81e33d1c41/research/slim/nets/nets_factory.py)函数实现的。[functools.wraps旨在消除装饰器对原函数造成的影响](https://zhuanlan.zhihu.com/p/45535784)，即对原函数的相关属性进行拷贝，已达到装饰器不修改原函数的目的。
+
+```
+def get_network_fn(name, num_classes, weight_decay=0.0, is_training=False):
+  """Returns a network_fn such as `logits, end_points = network_fn(images)`.
+  Args:
+    name: The name of the network.
+    num_classes: The number of classes to use for classification. If 0 or None,
+      the logits layer is omitted and its input features are returned instead.
+    weight_decay: The l2 coefficient for the model weights.
+    is_training: `True` if the model is being used for training and `False`
+      otherwise.
+  Returns:
+    network_fn: A function that applies the model to a batch of images. It has
+      the following signature:
+          net, end_points = network_fn(images)
+      The `images` input is a tensor of shape [batch_size, height, width, 3 or
+       1] with height = width = network_fn.default_image_size. (The
+      permissibility and treatment of other sizes depends on the network_fn.)
+      The returned `end_points` are a dictionary of intermediate activations.
+      The returned `net` is the topmost layer, depending on `num_classes`:
+      If `num_classes` was a non-zero integer, `net` is a logits tensor
+      of shape [batch_size, num_classes].
+      If `num_classes` was 0 or `None`, `net` is a tensor with the input
+      to the logits layer of shape [batch_size, 1, 1, num_features] or
+      [batch_size, num_features]. Dropout has not been applied to this
+      (even if the network's original classification does); it remains for
+      the caller to do this or not.
+  Raises:
+    ValueError: If network `name` is not recognized.
+  """
+  if name not in networks_map:
+    raise ValueError('Name of network unknown %s' % name)
+  func = networks_map[name]
+  @functools.wraps(func)
+  def network_fn(images, **kwargs):
+    arg_scope = arg_scopes_map[name](weight_decay=weight_decay)
+    with slim.arg_scope(arg_scope):
+      return func(images, num_classes=num_classes, is_training=is_training,
+                  **kwargs)
+  if hasattr(func, 'default_image_size'):
+    network_fn.default_image_size = func.default_image_size
+
+  return network_fn
+```
+
+
 
