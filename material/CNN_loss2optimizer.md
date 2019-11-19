@@ -466,3 +466,35 @@ def get_split(split_name, dataset_dir, file_pattern=None, reader=None):
       num_classes=_NUM_CLASSES,
       labels_to_names=labels_to_names)
 ```
+通过tf_record的生成代码[build_image_data.py](https://github.com/tensorflow/models/blob/master/research/inception/inception/data/build_image_data.py)方便理解数据的存储方式。
+```
+def _convert_to_example(filename, image_buffer, label, text, height, width):
+  """Build an Example proto for an example.
+  Args:
+    filename: string, path to an image file, e.g., '/path/to/example.JPG'
+    image_buffer: string, JPEG encoding of RGB image
+    label: integer, identifier for the ground truth for the network
+    text: string, unique human-readable, e.g. 'dog'
+    height: integer, image height in pixels
+    width: integer, image width in pixels
+  Returns:
+    Example proto
+  """
+
+  colorspace = 'RGB'
+  channels = 3
+  image_format = 'JPEG'
+
+  example = tf.train.Example(features=tf.train.Features(feature={
+      'image/height': _int64_feature(height),
+      'image/width': _int64_feature(width),
+      'image/colorspace': _bytes_feature(tf.compat.as_bytes(colorspace)),
+      'image/channels': _int64_feature(channels),
+      'image/class/label': _int64_feature(label),
+      'image/class/text': _bytes_feature(tf.compat.as_bytes(text)),
+      'image/format': _bytes_feature(tf.compat.as_bytes(image_format)),
+      'image/filename': _bytes_feature(tf.compat.as_bytes(os.path.basename(filename))),
+      'image/encoded': _bytes_feature(tf.compat.as_bytes(image_buffer))}))
+  return example
+```
+
