@@ -8,6 +8,8 @@
 - [大数据，云计算，AI讲解](https://mp.weixin.qq.com/s/45YVq5TlhJ20asRbJrujLA)
 - [知识图谱](https://mp.weixin.qq.com/s/fuI9U7aZpuk-WX6GQNtOuA)
 - [最通俗的 Python3 网络爬虫入门](https://mp.weixin.qq.com/s/je7w3IgchDTpXADYAbh-pg)
+- [科普｜大家都看得懂的CTR预估解析](https://www.meihua.info/a/72378)
+- [计算广告系统算法与架构综述](https://cloud.tencent.com/developer/article/1441422)
 ## 概念
 ### 训练参数
 - one epoch = one forward pass and one backward pass of all the training examples
