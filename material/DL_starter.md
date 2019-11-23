@@ -40,6 +40,7 @@ The term "batch" is ambiguous: some people use it to designate the entire traini
 - [图网络GNN](https://mp.weixin.qq.com/s/yYJw7gvploiRCTfwmeSwZQ)
 ### 入门教程
 
+- [强化学习](https://morvanzhou.github.io/tutorials/machine-learning/reinforcement-learning/)
 - [谈谈python的GIL、多线程、多进程](https://zhuanlan.zhihu.com/p/20953544)
 - [Intuitively Understanding Convolutions for Deep Learning](https://towardsdatascience.com/intuitively-understanding-convolutions-for-deep-learning-1f6f42faee1)
 - [池化层](https://machinelearningmastery.com/pooling-layers-for-convolutional-neural-networks/)
@@ -80,6 +81,7 @@ multi-label cross-entropy loss；
 ### Op教程
 - [fc转conv](hthttps://github.com/BVLC/caffe/blob/master/examples/net_surgery.ipynb)
 ### 领域综述
+- [NAS（神经结构搜索）综述](https://zhuanlan.zhihu.com/p/60414004)
 - [11分钟训练Imagenet](https://mp.weixin.qq.com/s/KsVrYuv8hpwaB4uPTWEt_g?spm=5176.100239.blogcont231863.10.3715505e7AP9vx)
 - [ MTL翻译地址](https://www.jiqizhixin.com/articles/2017-06-23-5)[原地址](http://ruder.io/multi-task/)
 - [迁移学习](https://www.zhihu.com/question/41979241)
