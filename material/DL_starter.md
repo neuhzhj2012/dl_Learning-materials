@@ -1,5 +1,6 @@
 ## [生活不只是工作](https://mp.weixin.qq.com/s/pwbOv22KFF-f2BdJ6EA7rA)
 ## 其他
+- [产品经理的AI知识库](https://easyai.tech/ai-definition/ai/)
 - [Git使用教程](https://mp.weixin.qq.com/s/5zW3_De8fseRXSiudfDJ4w)
 - [一周的机器学习](https://mp.weixin.qq.com/s/aC7C8Zi9tT7h3e3TqbtYtA)
 - “[软化](https://mp.weixin.qq.com/s/Duouc-ErqGqO4aTNA0NiyA)”就是把一些本来不可导的函数用一些可导函数来近似
@@ -39,9 +40,11 @@ The term "batch" is ambiguous: some people use it to designate the entire traini
 ### 新概念
 - [图网络GNN](https://mp.weixin.qq.com/s/yYJw7gvploiRCTfwmeSwZQ)
 ### 入门文章
+- [RNN(Recurrent Neural Network)](https://easyai.tech/ai-definition/rnn/#yuanli)
 - [强化学习](https://zhuanlan.zhihu.com/p/27860483)
 ### 入门教程
 
+- [RNN(循环神经网络)](https://zybuluo.com/hanbingtao/note/541458)
 - [强化学习](https://morvanzhou.github.io/tutorials/machine-learning/reinforcement-learning/)
 - [谈谈python的GIL、多线程、多进程](https://zhuanlan.zhihu.com/p/20953544)
 - [Intuitively Understanding Convolutions for Deep Learning](https://towardsdatascience.com/intuitively-understanding-convolutions-for-deep-learning-1f6f42faee1)
@@ -83,6 +86,7 @@ multi-label cross-entropy loss；
 ### Op教程
 - [fc转conv](hthttps://github.com/BVLC/caffe/blob/master/examples/net_surgery.ipynb)
 ### 领域综述
+- [The fall of RNN / LSTM](https://towardsdatascience.com/the-fall-of-rnn-lstm-2d1594c74ce0)
 - [NAS（神经结构搜索）综述](https://www.jiqizhixin.com/articles/2018-08-31-4)
 - [11分钟训练Imagenet](https://mp.weixin.qq.com/s/KsVrYuv8hpwaB4uPTWEt_g?spm=5176.100239.blogcont231863.10.3715505e7AP9vx)
 - [ MTL翻译地址](https://www.jiqizhixin.com/articles/2017-06-23-5)[原地址](http://ruder.io/multi-task/)
