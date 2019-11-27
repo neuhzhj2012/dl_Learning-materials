@@ -38,6 +38,8 @@ The term "batch" is ambiguous: some people use it to designate the entire traini
 - [18中热门GAN,附代码](http://mp.weixin.qq.com/s?__biz=MzIzNjc1NzUzMw==&mid=2247497494&idx=6&sn=a1956065373bfae8ac12463be930cab4&chksm=e8d04064dfa7c9720779aaf3b6224b408133e285be383b90ef4c88a572661c80f5223b737eb2&mpshare=1&scene=23&srcid=0501ijXn9ieadUdRxahvFKy1#rd)
 ### 新概念
 - [图网络GNN](https://mp.weixin.qq.com/s/yYJw7gvploiRCTfwmeSwZQ)
+### 入门文章
+- [强化学习](https://zhuanlan.zhihu.com/p/27860483)
 ### 入门教程
 
 - [强化学习](https://morvanzhou.github.io/tutorials/machine-learning/reinforcement-learning/)
@@ -81,7 +83,7 @@ multi-label cross-entropy loss；
 ### Op教程
 - [fc转conv](hthttps://github.com/BVLC/caffe/blob/master/examples/net_surgery.ipynb)
 ### 领域综述
-- [NAS（神经结构搜索）综述](https://zhuanlan.zhihu.com/p/60414004)
+- [NAS（神经结构搜索）综述](https://www.jiqizhixin.com/articles/2018-08-31-4)
 - [11分钟训练Imagenet](https://mp.weixin.qq.com/s/KsVrYuv8hpwaB4uPTWEt_g?spm=5176.100239.blogcont231863.10.3715505e7AP9vx)
 - [ MTL翻译地址](https://www.jiqizhixin.com/articles/2017-06-23-5)[原地址](http://ruder.io/multi-task/)
 - [迁移学习](https://www.zhihu.com/question/41979241)
