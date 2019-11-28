@@ -1,5 +1,7 @@
 ## [生活不只是工作](https://mp.weixin.qq.com/s/pwbOv22KFF-f2BdJ6EA7rA)
 ## 其他
+- [倒排索引](https://zhuanlan.zhihu.com/p/55296265)
+- [TF-IDF算法](https://zhuanlan.zhihu.com/p/55843621)
 - [产品经理的AI知识库](https://easyai.tech/ai-definition/ai/)
 - [Git使用教程](https://mp.weixin.qq.com/s/5zW3_De8fseRXSiudfDJ4w)
 - [一周的机器学习](https://mp.weixin.qq.com/s/aC7C8Zi9tT7h3e3TqbtYtA)
@@ -42,6 +44,7 @@ The term "batch" is ambiguous: some people use it to designate the entire traini
 ### 入门文章
 - [RNN(Recurrent Neural Network)](https://easyai.tech/ai-definition/rnn/#yuanli)
 - [强化学习](https://zhuanlan.zhihu.com/p/27860483)
+- [Attention](https://medium.com/syncedreview/a-brief-overview-of-attention-mechanism-13c578ba9129)
 ### 入门教程
 
 - [RNN(循环神经网络)](https://zybuluo.com/hanbingtao/note/541458)
