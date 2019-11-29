@@ -1,3 +1,6 @@
+## 文章 ##
+- [Review: DenseNet — Dense Convolutional Network (Image Classification)](https://towardsdatascience.com/review-densenet-image-classification-b6631a8ef803)
+## 网络结构 ##
 - [lenet](https://github.com/sujaybabruwad/LeNet-in-Tensorflow/blob/master/LeNet-Lab.ipynb) tf基础函数版
 ```
 def LeNet(x):    
