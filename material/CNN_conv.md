@@ -1,3 +1,6 @@
+- [卷积神经网络中十大拍案叫绝的操作](https://cloud.tencent.com/developer/article/1038802)
+- [如何理解空洞卷积（dilated convolution）？](https://www.zhihu.com/question/54149221)
+- [What's the use of dilated convolutions?](https://stackoverflow.com/questions/41178576/whats-the-use-of-dilated-convolutions)
 - 卷积可视化
 
 1. 特点:以热量图的形式表示数值大小或正确分类的高低
