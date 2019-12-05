@@ -45,8 +45,11 @@ The term "batch" is ambiguous: some people use it to designate the entire traini
 - [RNN(Recurrent Neural Network)](https://easyai.tech/ai-definition/rnn/#yuanli)
 - [强化学习](https://zhuanlan.zhihu.com/p/27860483)
 - [Attention](https://medium.com/syncedreview/a-brief-overview-of-attention-mechanism-13c578ba9129)
+- [Attn: Illustrated Attention](https://towardsdatascience.com/attn-illustrated-attention-5ec4ad276ee3)
+- [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)
 ### 入门教程
 
+- [一文读懂自注意力机制：8大步骤图解+代码](https://mp.weixin.qq.com/s/opLIBTfqYdZxfcRXdiQ_bg)
 - [RNN(循环神经网络)](https://zybuluo.com/hanbingtao/note/541458)
 - [强化学习](https://morvanzhou.github.io/tutorials/machine-learning/reinforcement-learning/)
 - [谈谈python的GIL、多线程、多进程](https://zhuanlan.zhihu.com/p/20953544)
