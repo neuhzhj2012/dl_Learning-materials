@@ -98,6 +98,9 @@ BN利用小批量上的均值和标准差，不断调整神经网络中间输出
 - multi-scale
 - passthrough，类似skip architecture
 - anchor boxes
+- residual blocks
+- skip connections 
+- upsampling
 
 
 ### 创新网络
