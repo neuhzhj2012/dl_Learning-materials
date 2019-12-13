@@ -115,6 +115,8 @@ multi-label cross-entropy loss；
 ## 年度流行
 - [2017python库](https://mp.weixin.qq.com/s/KWYET4jMTQwaydZmgCE4QA)
 - [2017NIPS会议论文](https://www.zhihu.com/question/64943934)
+- [2017年机器之心AI高分概述文章全集](https://www.jiqizhixin.com/articles/Zero-to-Hero-2017-synced-overview-articles-collection)
+- [机器之心2018高分教程合集](https://www.jiqizhixin.com/articles/123104)
 ## trick
 - [加速预训练模型的方法](https://mp.weixin.qq.com/s/mLeTdwarWmz_CUcU1aerIw)
 - [DNN训练trips-
