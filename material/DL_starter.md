@@ -47,6 +47,8 @@ The term "batch" is ambiguous: some people use it to designate the entire traini
 - [Attention](https://medium.com/syncedreview/a-brief-overview-of-attention-mechanism-13c578ba9129)
 - [Attn: Illustrated Attention](https://towardsdatascience.com/attn-illustrated-attention-5ec4ad276ee3)
 - [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)
+- [Sequence Modeling
+With CTC](https://distill.pub/2017/ctc/)
 ### 入门教程
 
 - [一文读懂自注意力机制：8大步骤图解+代码](https://mp.weixin.qq.com/s/opLIBTfqYdZxfcRXdiQ_bg)
