@@ -75,4 +75,4 @@ from strach开始训练输出层。 然后再微调其他层参数
 重复上述过程至所有真实边界框都分配一个锚框；
 剩余锚框与gt-box计算交并比，如果大于阈值则为当前锚框分配真实边界框；
 ```
-6. [检测算法评估标准](https://github.com/rafaelpadilla/Object-Detection-Metrics)
+6. [检测算法评估标准](https://github.com/rafaelpadilla/Object-Detection-Metrics)，直观理解详见[这里](https://medium.com/@jonathan_hui/map-mean-average-precision-for-object-detection-45c121a31173)
