@@ -62,9 +62,9 @@ pass
 
 ### 数据结构相关概念
 
-##### [树]([https://zh.wikipedia.org/wiki/%E6%A0%91_(%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
+##### [树](https://zh.wikipedia.org/wiki/%E6%A0%91_%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
 
-![树的深度与高度图解](C:\Users\Administrator\Desktop\1.jpg)
+![树的深度与高度图解](D:\Project\MyGithub\dl_Learning-materials\material\img\树的高度与深度.jpg)
 
                                                             图片来着[这里 ](https://stackoverflow.com/questions/2603692/what-is-the-difference-between-tree-depth-and-height)          
 
