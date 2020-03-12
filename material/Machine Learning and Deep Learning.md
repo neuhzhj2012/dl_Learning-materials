@@ -474,17 +474,41 @@ $$
 满足所有约束条件的模型集合为
 
 $$
-set \equiv \{{P\epsilon \rho |E_{p}(f_{i})=E_{\widetilde{p}(f_{i}), i=1,2,\cdot \cdot \cdot ,n}}\}
+set \equiv \{P\epsilon \rho |E_{p}(f_{i})=E_{\widetilde{p}}(f_{i}), i=1,2,\cdot \cdot \cdot ,n\}
 $$
 
 条件概率分布P(Y|X)的条件熵为
 
 $$
-H(P)=-\sum_{x,y}\widetilde{p}(x)P(y|x)logP(y|x)
+H(P)=-\sum_{x,y}{\widetilde{p}(x)}P(y|x)logP(y|x)
 $$
 
-则模型集合中条件熵最大的模型为最大熵模型。
+则模型集合中条件熵最大的模型为最大熵模型，具体为如下条件概率分布表示的分类模型，其中f为特征函数，w为对应函数的权重。可用于二分类或多分类。
 
-- 策略
+$$
+P_{w}（y|x）=\frac{1}{Z_{w}(x)}exp(\sum_{i=1}^{n}w_{i}f_{i}(x,y)), \newline
+Z_{w}(x)=\sum_{y}exp(\sum_{i=1}^{n}w_{i}f_{i}(x,y))
+$$
+
+- 策略 ——形式化为约束最优化问题
+
+$$
+max_{P \epsilon set} H(P)=-\sum_{x,y}\widetilde{p}(x)P(y|x)logP(y|x) \newline
+s.t. \> E_{p}(f_{i})=E_{\widetilde{p}}(f_{i}), i=1,2,\cdot \cdot \cdot ,n \newline
+\sum_{y}P(y|x)=1
+$$
+
+pass  （对偶问题求解）
+
+对偶函数的极大化等价于最大熵模型的极大似然估计
+
+- 算法——最优化算法
+1. 改进的迭代尺度法
+   
+   > pass
+
+2. 拟牛顿法
+   
+   > pass
 
 
