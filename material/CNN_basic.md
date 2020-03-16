@@ -1,9 +1,22 @@
 ## 基本概念
 
+<<<<<<< HEAD
 ### 卷积
 
 ![img](D:\Project\MyGithub\dl_Learning-materials\img\Basic_conv.gif)
 
+=======
+数学概念及符号
+
+如果要定义一个函数 f(x)=x^{2}的话，Mathematica中的写法是这样的：
+
+> In[28]:= f[x] := *x*^2
+
+
+
+### 卷积
+
+>>>>>>> ad59c3657ab522381b5c949d7c34c54e7f01693e
 - [卷积](https://towardsdatascience.com/intuitively-understanding-convolutions-for-deep-learning-1f6f42faee1)
 1. 作用：提取特征
 2. 超参数:改变输出特征图的大小
@@ -12,12 +25,19 @@
 > stride（步幅）
 > dilations（空洞值）
 
+<<<<<<< HEAD
 3. [多输入多输出的卷积过程](http://cs231n.github.io/convolutional-networks/#conv)
 
 ![img](D:\Project\MyGithub\dl_Learning-materials\img\Basic_convs.gif)
 
 > 当输入数据含多个通道时，我们需要构造一个与输入数据通道数相同的卷积核， 从而能够与含多通道的输入数据做互相关运算，得到一个输出通道的值；多个输出通道是多个卷积核与输入数据运算的结果。
 
+=======
+3. [多输入多输出的卷积过程](https://zh.d2l.ai/chapter_convolutional-neural-networks/channels.html)
+
+> 当输入数据含多个通道时，我们需要构造一个与输入数据通道数相同的卷积核， 从而能够与含多通道的输入数据做互相关运算，得到一个输出通道的值；多个输出通道是多个卷积核与输入数据运算的结果。
+
+>>>>>>> ad59c3657ab522381b5c949d7c34c54e7f01693e
 - 池化
 1. 作用：增加网络对旋转和位移的鲁棒性
 2. 超参数
@@ -107,7 +127,11 @@
 
 - VGG重复元素的网络
 
+<<<<<<< HEAD
 > 两个3*3卷积核的感受野和1个5*5卷积核的感受野相同，且参数减少；
+=======
+> 两个3\*3卷积核的感受野和1个5\*5卷积核的感受野相同，且参数减少；
+>>>>>>> ad59c3657ab522381b5c949d7c34c54e7f01693e
 > 通过使卷积核大小减半以及通道翻倍的设计，使得多数卷积层都有相同的模型参数尺寸和计算复杂度
 
 - NIN网络中的网络
@@ -123,6 +147,7 @@
 
 - ResNet残差网络
 1. 出发点
+<<<<<<< HEAD
 
 > 对神经网络添加新层后，理论上，原模型解的空间只是新模型解的空间的子空间。 因此添加层似乎更容易降低训练误差。实际上，即使加入BN处理， 添加过多的层后训练误差往往不降反升。
 
@@ -135,6 +160,27 @@
 
 > 将浅层的数据与深层的数据相加
 
+=======
+
+> 对神经网络添加新层后，理论上，原模型解的空间只是新模型解的空间的子空间。 因此添加层似乎更容易降低训练误差。实际上，即使加入BN处理， 添加过多的层后训练误差往往不降反升。
+
+2. 名字由来：假设可通过堆叠的网络层近似逼近任意复杂的函数，从中学习输入x到输出的映射关系H，ResNet旨在学习另一个函数F(x)，使F(x):=H(x)– x，变换格式后得到H(x):=F(x)+x即残差模块的输出部分，由于x为恒等映射，所以网络实际学习的是一个残差函数F(x)。
+
+> Instead of hoping each few stacked layers directly fit a desired underlying mapping,  we explicitly let these layers fit a residual mapping. Formally, denoting the desired underlying mapping as H(x), we let the stacked nonlinear
+> layers fit another mapping of F(x) := H(x) - x. The original mapping is recast into F(x)+x. We hypothesize that it is easier to optimize the residual mapping than to optimize the original, unreferenced mapping. To the extreme, if an identity mapping were optimal, it would be easier to push the residual to zero than to fit an identity mapping by a stack of nonlinear layers.
+
+> Let us consider H(x) as an underlying mapping to be fit by a few stacked layers (not necessarily the entire net), with x denoting the inputs to the first of these layers. If one hypothesizes that multiple nonlinear layers can asymptotically approximate complicated functions, then it is equivalent to hypothesize that they can asymptotically approximate the residual functions, i.e., H(x) - x (assuming that the input and output are of the same dimensions). So rather than expect stacked layers to approximate H(x), we explicitly let these layers approximate a residual function F(x) := H(x) - x. The original function thus becomes F(x)+x [Deep Residual Learning for Image Recognition 2015]
+
+3. 作用
+
+> 在残差块中，输入可通过跨层的数据线路更快地向前传播。
+> 残差映射在实际中往往更容易优化;
+
+4. 操作
+
+> 将浅层的数据与深层的数据相加
+
+>>>>>>> ad59c3657ab522381b5c949d7c34c54e7f01693e
 - DenseNet稠密连接网络
 1. 出发点
 
