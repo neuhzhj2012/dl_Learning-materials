@@ -1,7 +1,69 @@
-- [卷积神经网络中十大拍案叫绝的操作](https://cloud.tencent.com/developer/article/1038802)
-- [如何理解空洞卷积（dilated convolution）？](https://www.zhihu.com/question/54149221)
-- [What's the use of dilated convolutions?](https://stackoverflow.com/questions/41178576/whats-the-use-of-dilated-convolutions)
-- 卷积可视化
+### 卷积
+
+###### 参考资料
+
+> [A guide to convolution arithmetic for deep learning](https://arxiv.org/abs/1603.07285)
+> 
+> [cs231n\_convolution](http://cs231n.github.io/convolutional-networks/#conv)
+> 
+> [Intuitively Understanding Convolutions for Deep Learning](https://towardsdatascience.com/intuitively-understanding-convolutions-for-deep-learning-1f6f42faee1)
+> 
+> [如何理解空洞卷积（dilated convolution）？](https://www.zhihu.com/question/54149221)
+> 
+> [What's the use of dilated convolutions?](https://stackoverflow.com/questions/41178576/whats-the-use-of-dilated-convolutions)
+> 
+> [卷积神经网络中十大拍案叫绝的操作](https://cloud.tencent.com/developer/article/1038802)
+> 
+> [ A guide to receptive field arithmetic for Convolutional Neural Networks](https://medium.com/mlreview/a-guide-to-receptive-field-arithmetic-for-convolutional-neural-networks-e0f514068807)
+
+- **特征图、感受野、首个特征的中心点坐标**
+
+![img](D:\Project\MyGithub\dl_Learning-materials\img\Basic_FeatureMap_RF.png)
+
+###### 基础理解
+
+![图片](D:\Project\MyGithub\dl_Learning-materials\img\Basic_conv.gif)
+
+1. 作用：提取特征
+2. 超参数:改变输出特征图的大小
+
+> padding（填充）
+> stride（步幅）
+> dilations（空洞值）
+
+3. 多输入多输出的卷积过程
+
+![图片](D:\Project\MyGithub\dl_Learning-materials\img\Basic_convs.gif)
+
+> 当输入数据含多个通道时，我们需要构造一个与输入数据通道数相同的卷积核， 从而能够与含多通道的输入数据做互相关运算，得到一个输出通道的值；多个输出通道是多个卷积核与输入数据运算的结果。
+
+###### 池化
+
+![img](D:\Project\MyGithub\dl_Learning-materials\img\Basic_MaxPooling.jpg)
+
+- 作用：增加网络对旋转和位移的鲁棒性
+
+- 超参数
+
+> padding（填充）
+> stride（步幅）
+> dilation_rate(空洞值)
+
+- [分类及bp计算](http://www.voidcn.com/article/p-rbpamgzn-bee.html)
+
+> average-pooling(平均值池化)，bp时将残差等比例传至上一层计算
+> max-pooling(最大值池化)，独立变量记录fp时的最大值位置，bp时残差传至上一层的最大值位置处，其他位置为0
+> 
+> global-pooling (全局池化), 包括全局平均池化和全局最大化池化，旨在将整个特征图映射为1个值。
+
+###### 感受野
+
+> 影响元素x的前向计算的所有可能输入区域 （可能大于输入的实际尺寸）叫做 x 的感受野（receptive field）
+> 
+> 卷积神经网络每一层输出的特征图（feature map）上的像素点在原始图像上映射的区域大小
+
+###### 卷积可视化
+
 1. 特点：以热量图的形式表示数值大小或正确分类的高低
 2. 分类：参数(滤波核)可视化和非参数(特征图)可视化
 3. 作用
@@ -19,10 +81,44 @@
   > the actual weight values in the matrix does not have to come from the original convolution matrix. What’s important is that the weight layout is transposed from that of the convolution matrix
 
 - [deconv相关介绍](https://www.zhihu.com/question/43609045)
-  
-  ```
-  
-  ```
+
+##### 分类
+
+###### 基础卷积
+
+- 标准卷积
+
+- 反卷积
+
+- 膨胀卷积
+
+- 可变形卷积
+
+- 点卷积
+
+- 深度卷积
+
+- 通道shuffle卷积
+
+###### 组合卷积
+
+- 分组卷积
+
+- bottleneck
+
+- 深度可分离卷积
+
+- inception
+
+###### 卷积+运算
+
+- 残差模块
+
+- 反残差模块
+
+- 稠密卷积
+
+###### 参考代码
 
 - [可分离卷积](https://github.com/tensorflow/tensorflow/blob/r2.0/tensorflow/contrib/layers/python/layers/layers.py)
 
