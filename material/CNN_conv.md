@@ -2,6 +2,8 @@
 
 ###### 参考资料
 
+> [Understanding Memory Formats](https://intel.github.io/mkl-dnn/understanding_memory_formats.html)
+> 
 > [A guide to convolution arithmetic for deep learning](https://arxiv.org/abs/1603.07285)
 > 
 > [cs231n\_convolution](http://cs231n.github.io/convolutional-networks/#conv)
@@ -16,30 +18,87 @@
 > 
 > [ A guide to receptive field arithmetic for Convolutional Neural Networks](https://medium.com/mlreview/a-guide-to-receptive-field-arithmetic-for-convolutional-neural-networks-e0f514068807)
 
-- **特征图、感受野、首个特征的中心点坐标**
-
-![img](D:\Project\MyGithub\dl_Learning-materials\img\Basic_FeatureMap_RF.png)
-
 ###### 基础理解
 
-![图片](D:\Project\MyGithub\dl_Learning-materials\img\Basic_conv.gif)
+- 作用：提取特征
 
-1. 作用：提取特征
-2. 超参数:改变输出特征图的大小
+- 特点：局部连接、权值共享
+
+- 超参数:改变输出特征图的大小(输出的空间布局)
 
 > padding（填充）
 > stride（步幅）
 > dilations（空洞值）
 
-3. 多输入多输出的卷积过程
+- 卷积的过程
+
+![img](D:\Project\MyGithub\dl_Learning-materials\img\Basic_conv.gif)
+
+- 多输入多输出的卷积过程，图片来自[这里](http://cs231n.github.io/convolutional-networks/#conv)。
 
 ![图片](D:\Project\MyGithub\dl_Learning-materials\img\Basic_convs.gif)
 
 > 当输入数据含多个通道时，我们需要构造一个与输入数据通道数相同的卷积核， 从而能够与含多通道的输入数据做互相关运算，得到一个输出通道的值；多个输出通道是多个卷积核与输入数据运算的结果。
 
+- 感受野
+
+> 影响元素x的前向计算的所有可能输入区域 （可能大于输入的实际尺寸）叫做 x 的感受野（receptive field）
+> 
+> 卷积神经网络每一层输出的特征图（feature map）上的像素点在原始图像上映射的区域大小
+
+- 输出特征图大小与感受野计算
+
+> K：卷积核大小
+> 
+> P：填充大小
+> 
+> S：移动步长
+> 
+> N：特征图大小
+> 
+> R：感受野大小
+> 
+> J：相邻像素间的步长
+> 
+> - 输出特征图大小
+> 
+> $$
+> N_{out} = \left \lfloor (N_{in} - K + 2P)/S \right \rfloor + 1
+> $$
+> 
+> - 感受野大小 
+> 
+> $$
+> R_{0} = K \newline
+> J_{0} = S \newline
+> R_{out}=R_{in} + (K-1)*J_{in} \newline
+> J_{out}=J_{in}*S
+> 
+> $$
+> 
+> - 空洞卷积的大小
+> 
+> pass
+
+- 特征图、感受野、第一个输出特征的感受野的中心位置，图片来自[这里](https://medium.com/mlreview/a-guide-to-receptive-field-arithmetic-for-convolutional-neural-networks-e0f514068807)
+
+![img](D:\Project\MyGithub\dl_Learning-materials\img\Basic_FeatureMap_RF.png)
+
+###### 
+
+- [deconvolution](https://github.com/tensorflow/tensorflow/blob/r2.0/tensorflow/python/ops/nn_ops.py) deconv只是观念上和传统的conv反向(但是不是更新梯度的反向传播)),传统的conv是从图片生成feature map，而deconv是用unsupervised的方法找到一组kernel和feature map，让它们重建图片;
+
+- [deconv和conv关系](the actual weight values in the matrix does not have to come from the original convolution matrix. What’s important is that the weight layout is transposed from that of the convolution matrix)conv是多对1，deconv是1对多；位置关联；转置卷积的权重是学出来的;转置卷积可以得到原来的图像大小，但实际使用中转置卷积核的大小无关紧要，因为转置卷积参数中有输出大小的参数
+  
+  > the actual weight values in the matrix does not have to come from the original convolution matrix. What’s important is that the weight layout is transposed from that of the convolution matrix
+
+- [deconv相关介绍](https://www.zhihu.com/question/43609045)
+
 ###### 池化
 
 ![img](D:\Project\MyGithub\dl_Learning-materials\img\Basic_MaxPooling.jpg)
+
+                                                                        图片来自[这里](http://cs231n.github.io/convolutional-networks/#conv)
 
 - 作用：增加网络对旋转和位移的鲁棒性
 
@@ -56,37 +115,48 @@
 > 
 > global-pooling (全局池化), 包括全局平均池化和全局最大化池化，旨在将整个特征图映射为1个值。
 
-###### 感受野
-
-> 影响元素x的前向计算的所有可能输入区域 （可能大于输入的实际尺寸）叫做 x 的感受野（receptive field）
-> 
-> 卷积神经网络每一层输出的特征图（feature map）上的像素点在原始图像上映射的区域大小
-
 ###### 卷积可视化
 
-1. 特点：以热量图的形式表示数值大小或正确分类的高低
-2. 分类：参数(滤波核)可视化和非参数(特征图)可视化
-3. 作用
+- 特点：以热量图的形式表示数值大小或正确分类的高低
+
+- 分类：参数(滤波核)可视化和非参数(特征图)可视化
+
+- 作用
 
 > 观察特征图的响应。如ZFnet根据特征可视化，提出AlexNet第一个卷积层卷积核太大，导致提取到的特征模糊；
 > 通过每层特征图的变化得到特征演变过程；
 > 对分类器进行敏感性分析。可通过阻止部分输入图像揭示那部分对分类是重要的；
 > 诊断模型潜在问题；
 
-4. [卷积核及特征图可视化参考代码](https://machinelearningmastery.com/how-to-visualize-filters-and-feature-maps-in-convolutional-neural-networks/)
-- [deconvolution](https://github.com/tensorflow/tensorflow/blob/r2.0/tensorflow/python/ops/nn_ops.py) deconv只是观念上和传统的conv反向(但是不是更新梯度的反向传播)),传统的conv是从图片生成feature map，而deconv是用unsupervised的方法找到一组kernel和feature map，让它们重建图片;
-
-- [deconv和conv关系](the actual weight values in the matrix does not have to come from the original convolution matrix. What’s important is that the weight layout is transposed from that of the convolution matrix)conv是多对1，deconv是1对多；位置关联；转置卷积的权重是学出来的;转置卷积可以得到原来的图像大小，但实际使用中转置卷积核的大小无关紧要，因为转置卷积参数中有输出大小的参数
-  
-  > the actual weight values in the matrix does not have to come from the original convolution matrix. What’s important is that the weight layout is transposed from that of the convolution matrix
-
-- [deconv相关介绍](https://www.zhihu.com/question/43609045)
+- [卷积核及特征图可视化参考代码](https://machinelearningmastery.com/how-to-visualize-filters-and-feature-maps-in-convolutional-neural-networks/)
 
 ##### 分类
 
+**卷积核的4个超参数：输入特征图的通道数、滤波器的高度、滤波器的宽度和输出特征图的通道数**。不同类型的卷积及其计算量均是通过上述4个超参数间的组合变换得到的，其中计算量可看下图，图片来自[这里](https://medium.com/@yu4u/why-mobilenet-and-its-variants-e-g-shufflenet-are-fast-1c7048b9618d)。![img](D:\Project\MyGithub\dl_Learning-materials\img\Model_conv_calucation.png)
+
 ###### 基础卷积
 
+- 数据格式：NCHW和NHWC，在内存中的存储方式也不同。图片来自[这里](https://intel.github.io/mkl-dnn/understanding_memory_formats.html)。
+
+> **N**: number of images in the batch
+> 
+> **H**: height of the image
+> 
+> **W**: width of the image
+> 
+> **C**: number of channels of the image (ex: 3 for RGB, 1 for grayscale...)
+> 
+> TensorFlow 为什么选择 NHWC 格式作为默认格式？因为早期开发都是基于 CPU，使用 NHWC 比 NCHW 稍快一些（不难理解，NHWC 局部性更好，cache 利用率高）。
+> 
+> NCHW 则是 Nvidia cuDNN 默认格式，使用 GPU 加速时用 NCHW 格式速度会更快（也有个别情况例外）。
+> 
+> 最佳实践：设计网络时充分考虑两种格式，最好能灵活切换，在 GPU 上训练时使用 NCHW 格式，在 CPU 上做预测时使用 NHWC 格式。
+
+![img](D:\Project\MyGithub\dl_Learning-materials\img\Basic_Data_layout.png)
+
 - 标准卷积
+
+> 卷积核格式类似于特征图数据格式，单个卷积核的大小为HWC，其中H和W为卷积核大小，C为输入特征图的通道数。卷积操作时将每个通道上卷积的结果相加作为输出特征图上对应位置的值。对于输出M个特征图时，需要M个HWC维度的卷积核分别卷积。
 
 - 反卷积
 
