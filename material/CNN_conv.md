@@ -20,8 +20,6 @@
 
 ###### 基础理解
 
-
-
 - 作用：提取特征
 
 - 特点：局部连接、权值共享
@@ -158,11 +156,23 @@
 
 - 标准卷积
 
+![img](../img/Basic_Conv_strides.gif)
+
+                                                            图片来自[这里](https://github.com/vdumoulin/conv_arithmetic)
+
 > 卷积核格式类似于特征图数据格式，单个卷积核的大小为HWC，其中H和W为卷积核大小，C为输入特征图的通道数。卷积操作时将每个通道上卷积的结果相加作为输出特征图上对应位置的值。对于输出M个特征图时，需要M个HWC维度的卷积核分别卷积。
 
 - 反卷积
 
+![img](../img/Basic_Conv_Transposed.gif)
+
+                                                           图片来自[这里](https://github.com/vdumoulin/conv_arithmetic)
+
 - 膨胀卷积
+
+![img](../img/Basic_Conv_Dilated.gif)
+
+                                                            图片来自[这里](https://github.com/vdumoulin/conv_arithmetic)
 
 - 可变形卷积
 
