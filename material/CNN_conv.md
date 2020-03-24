@@ -20,7 +20,7 @@
 
 ###### 基础理解
 
-![img](https://github.com/neuhzhj2012/dl_Learning-materials/blob/master/img/Basic_conv.gif)
+
 
 - 作用：提取特征
 
