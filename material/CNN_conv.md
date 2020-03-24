@@ -20,7 +20,7 @@
 
 ###### 基础理解
 
-![tmp](https://ibb.co/q1RxS10)
+![img](https://github.com/neuhzhj2012/dl_Learning-materials/blob/master/img/Basic_conv.gif)
 
 - 作用：提取特征
 
@@ -34,11 +34,11 @@
 
 - 卷积的过程
 
-![img](D:\Project\MyGithub\dl_Learning-materials\img\Basic_conv.gif)
+![img](../img/Basic_conv.gif)
 
 - 多输入多输出的卷积过程，图片来自[这里](http://cs231n.github.io/convolutional-networks/#conv)。
 
-![图片](D:\Project\MyGithub\dl_Learning-materials\img\Basic_convs.gif)
+![图片](../img/Basic_convs.gif)
 
 > 当输入数据含多个通道时，我们需要构造一个与输入数据通道数相同的卷积核， 从而能够与含多通道的输入数据做互相关运算，得到一个输出通道的值；多个输出通道是多个卷积核与输入数据运算的结果。
 
@@ -84,7 +84,7 @@
 
 - 特征图、感受野、第一个输出特征的感受野的中心位置，图片来自[这里](https://medium.com/mlreview/a-guide-to-receptive-field-arithmetic-for-convolutional-neural-networks-e0f514068807)
 
-![img](D:\Project\MyGithub\dl_Learning-materials\img\Basic_FeatureMap_RF.png)
+![img](../img/Basic_FeatureMap_RF.png)
 
 ###### 
 
@@ -98,7 +98,7 @@
 
 ###### 池化
 
-![img](D:\Project\MyGithub\dl_Learning-materials\img\Basic_MaxPooling.jpg)
+![img](../img/Basic_MaxPooling.jpg)
 
                                                                         图片来自[这里](http://cs231n.github.io/convolutional-networks/#conv)
 
@@ -134,7 +134,7 @@
 
 ##### 分类
 
-**卷积核的4个超参数：输入特征图的通道数、滤波器的高度、滤波器的宽度和输出特征图的通道数**。不同类型的卷积及其计算量均是通过上述4个超参数间的组合变换得到的，其中计算量可看下图，图片来自[这里](https://medium.com/@yu4u/why-mobilenet-and-its-variants-e-g-shufflenet-are-fast-1c7048b9618d)。![img](D:\Project\MyGithub\dl_Learning-materials\img\Model_conv_calucation.png)
+**卷积核的4个超参数：输入特征图的通道数、滤波器的高度、滤波器的宽度和输出特征图的通道数**。不同类型的卷积及其计算量均是通过上述4个超参数间的组合变换得到的，其中计算量可看下图，图片来自[这里](https://medium.com/@yu4u/why-mobilenet-and-its-variants-e-g-shufflenet-are-fast-1c7048b9618d)。![img](../img/Model_conv_calucation.png)
 
 ###### 基础卷积
 
@@ -154,7 +154,7 @@
 > 
 > 最佳实践：设计网络时充分考虑两种格式，最好能灵活切换，在 GPU 上训练时使用 NCHW 格式，在 CPU 上做预测时使用 NHWC 格式。
 
-![img](D:\Project\MyGithub\dl_Learning-materials\img\Basic_Data_layout.png)
+![img](../img/Basic_Data_layout.png)
 
 - 标准卷积
 
