@@ -6,6 +6,8 @@
 > 
 > [A guide to convolution arithmetic for deep learning](https://arxiv.org/abs/1603.07285)
 > 
+>  [A Comprehensive Introduction to Different Types of Convolutions in Deep Learning](https://towardsdatascience.com/a-comprehensive-introduction-to-different-types-of-convolutions-in-deep-learning-669281e58215)
+> 
 > [cs231n\_convolution](http://cs231n.github.io/convolutional-networks/#conv)
 > 
 > [Intuitively Understanding Convolutions for Deep Learning](https://towardsdatascience.com/intuitively-understanding-convolutions-for-deep-learning-1f6f42faee1)
@@ -26,7 +28,7 @@
 
 - 超参数:改变输出特征图的大小(输出的空间布局)
 
-> padding（填充）
+> padding（填充）: 0 padding(不填充), half(same) padding(保证输入与输出大小相同), full padding(p=k-1)
 > stride（步幅）
 > dilations（空洞值）
 
@@ -58,15 +60,17 @@
 > 
 > R：感受野大小
 > 
+> d：膨胀大小
+> 
 > J：相邻像素间的步长
 > 
-> - 输出特征图大小
+> - 卷积输出特征图大小，向上取整
 > 
 > $$
-> N_{out} = \left \lfloor (N_{in} - K + 2P)/S \right \rfloor + 1
+> N_{out} = \left \lfloor \frac {(N_{in} - K + 2P)}{S} \right \rfloor + 1
 > $$
 > 
-> - 感受野大小 
+> - 卷积感受野大小 
 > 
 > $$
 > R_{0} = K \newline
@@ -76,23 +80,25 @@
 > 
 > $$
 > 
-> - 空洞卷积的大小
+> - 空洞卷积的输出特征图大小
 > 
-> pass
+> $$
+> N_{out} = \left \lfloor \frac {(N_{in} - d(K - 1) + 2P)}{S} \right \rfloor + 1
+> $$
+> 
+> - 空洞卷积的感受野大小
+> 
+> $$
+> R_{i}=R_{i-1} + d*(K-1)* \prod_{n=1}^{i-1} S_{n}
+> $$
 
 - 特征图、感受野、第一个输出特征的感受野的中心位置，图片来自[这里](https://medium.com/mlreview/a-guide-to-receptive-field-arithmetic-for-convolutional-neural-networks-e0f514068807)
 
 ![img](../img/Basic_FeatureMap_RF.png)
 
-###### 
-
-- [deconvolution](https://github.com/tensorflow/tensorflow/blob/r2.0/tensorflow/python/ops/nn_ops.py) deconv只是观念上和传统的conv反向(但是不是更新梯度的反向传播)),传统的conv是从图片生成feature map，而deconv是用unsupervised的方法找到一组kernel和feature map，让它们重建图片;
-
-- [deconv和conv关系](the actual weight values in the matrix does not have to come from the original convolution matrix. What’s important is that the weight layout is transposed from that of the convolution matrix)conv是多对1，deconv是1对多；位置关联；转置卷积的权重是学出来的;转置卷积可以得到原来的图像大小，但实际使用中转置卷积核的大小无关紧要，因为转置卷积参数中有输出大小的参数
+- [deconvolution](https://www.zhihu.com/question/43609045)别名transposed convolution, backward convolution, fractally strided convolution, upsampling convolution，并不是指信号处理中还原输入信号的反卷积。深度学习中的转置卷积主要用来上采样，应用于GAN网络或分割网络等。deconv和conv关系：conv是多对1，deconv是1对多；位置关联；转置卷积的权重是学出来的;转置卷积可以得到原来的图像大小，但实际使用中转置卷积核的大小无关紧要，因为转置卷积参数中有输出大小的参数
   
-  > the actual weight values in the matrix does not have to come from the original convolution matrix. What’s important is that the weight layout is transposed from that of the convolution matrix
-
-- [deconv相关介绍](https://www.zhihu.com/question/43609045)
+  > the actual weight values in the matrix does not have to come from the original convolution matrix. What’s important is that the weight layout is transposed from that of the convolution
 
 ###### 池化
 
@@ -154,25 +160,56 @@
 
 ![img](../img/Basic_Data_layout.png)
 
+- [卷积运算的两种方式](http://www.jeepxie.net/article/1273916.html)：卷积核与特征图的互相关运算(Traditional convolution)；转换为矩阵相乘的运算(将特征图重叠地划分为多个子矩阵，对每个子矩阵序列化成向量，并根据数据格式组合成另一个矩阵)。在caffe中，卷积运算采用后者，即先对数据进行[img2col](http://www.jeepshoe.net/art/121249.html)操作，再进行內积运算，速度比原始卷积操作的速度更快。
+
+![img](../img/Basic_Conv_caluation.jpg)
+
 - 标准卷积
 
 ![img](../img/Basic_Conv_strides.gif)
 
                                                             图片来自[这里](https://github.com/vdumoulin/conv_arithmetic)
 
+> 上图中蓝色为输入特征图，阴影部分为卷积核，绿色为卷积后的结果；
+> 
 > 卷积核格式类似于特征图数据格式，单个卷积核的大小为HWC，其中H和W为卷积核大小，C为输入特征图的通道数。卷积操作时将每个通道上卷积的结果相加作为输出特征图上对应位置的值。对于输出M个特征图时，需要M个HWC维度的卷积核分别卷积。
 
-- 反卷积
+- [转置卷积(deconvolution, fractionally strided convolutions)](https://medium.com/activating-robotic-minds/up-sampling-with-transposed-convolution-9ae4f2df52d0)
 
-![img](../img/Basic_Conv_Transposed.gif)
+| 原始卷积                                         | 反卷积                                      |
+|:--------------------------------------------:|:----------------------------------------:|
+| ![img](../img/Basic_Conv_Transposed_map.gif) | ![img](../img/Basic_Conv_Transposed.gif) |
 
                                                            图片来自[这里](https://github.com/vdumoulin/conv_arithmetic)
 
-- 膨胀卷积
+> 利用卷积运算的第二种形式来理解转置卷积名称的由来。上图为一组卷积与转置卷积的对应关系。卷积核将输入中的9个值与输出中的1个值联系起来；转置卷积将输入中的单个特征与输出中的多个特征联系起来。卷积运算时，将输入特征图变为16\*1的列向量，卷积核转变为4\*16的矩阵，则输出为4\*1的列向量，转变为2\*2的矩阵。deconvolution时，将2\*2的输入矩阵变为4\*1的列向量，则卷积核转变为16\*4的矩阵，运算后得到16\*1的列向量，即原输入特征图4\*4的大小。所以**卷积和deconvolution操作时，卷积核大小呈现出转置的关系**，ps:转置卷积核也是学出来的，数据上与原卷积核无关。
+> 
+> **卷积与转置卷积输出特征图的大小与输入特征图大小，卷积核大小、步长和填充大小的关系相同**。且转置卷积的步长始终为1，由于卷积核大小相同，故可以根据输出特征图大小的关系，计算出转置卷积零填充的大小。当原卷积步长为1时，对应转置卷积的参数为：k'=k, s'=1, p'=k-p-1;原卷积步长大于1时，对应转置卷积的步长小于1，此时需要在转置卷积输入特征图的相邻特征间填充(s-1)个零元素得到转置卷积变换后的输入特征图(故也将转置卷积称为**fractionally strided convolutions**)，此时转置卷积的步长重新变为1，即原卷积步长为s时，对应转置卷积输入特征图大小变为i'+(i'-1)(s-1)，参数为：k'=k, s'=1, p'=k-p-1。如上操作建立在原卷积操作中特征图大小i与其卷积参数的关系为i+2p-k是s的整数倍的前提下，若不能整除则原始卷积中右侧和下侧的填充区域不参与卷积运算，此时也需要对转置卷积输入特征图的右侧和下侧添加(i+2p-k)mod(s)个零填充。如i=6, k=3,s=2,p=1时无法整除。此时卷积与转置卷积如下图所示。
+> 
+> $$
+> {o}'=s({i}'- 1)+a+k-2p \newline
+> st. \: a=(i+2p−k) mod (s)
+> $$
+> 
+> | 原卷积                               | 转置卷积                                         |
+> | --------------------------------- | -------------------------------------------- |
+> | ![img](../img/Basic_Conv_odd.gif) | ![img](../img/Basic_Conv_odd_transposed.gif) |
+
+- [空洞卷积](http://blog.qure.ai/notes/semantic-segmentation-deep-learning-review#dilation)
 
 ![img](../img/Basic_Conv_Dilated.gif)
 
                                                             图片来自[这里](https://github.com/vdumoulin/conv_arithmetic)
+
+>  [Dilated convolutional layer](http://blog.qure.ai/notes/semantic-segmentation-deep-learning-review#dilation) (also called as atrous convolution in [DeepLab](http://blog.qure.ai/notes/semantic-segmentation-deep-learning-review#deeplab)) allows for exponential increase in field of view without decrease of spatial dimensions.(空洞卷积的感受野程指数级增加，且不会减小特征图的空间大小)
+> 
+> “Atrous”源自法语“à trous”，意思是带孔。
+> 
+> **空洞卷积与转置卷积的差异**：
+> 
+> 1. 空洞卷积是为了增大感受野；转置卷积是为了upsampling;
+> 
+> 2. 空洞卷积的**dilation rate**相对于卷积核而言；转置卷积的stretch是对输入特征图处理的；
 
 - 可变形卷积
 
