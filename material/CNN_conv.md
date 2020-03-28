@@ -83,7 +83,7 @@
 > - 空洞卷积的输出特征图大小
 > 
 > $$
-> N_{out} = \left \lfloor \frac {(N_{in} - d(K - 1) + 2P)}{S} \right \rfloor + 1
+> N_{out} = \left \lfloor \frac {(N_{in} - d(K - 1) - 1 + 2P)}{S} \right \rfloor + 1
 > $$
 > 
 > - 空洞卷积的感受野大小
