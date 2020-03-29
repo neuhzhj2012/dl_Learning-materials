@@ -902,7 +902,7 @@ $$
 > Q(\Theta ,\Theta ^{i})=E_{Z}\left [ logP(Y,Z|\Theta )|Y,\Theta ^{i} \right ]
 > $$
 > 
-> 1.  设定参数θ的初始值，开始进行迭代
+> 1. 设定参数θ的初始值，开始进行迭代
 > 
 > 2. E步：记θi为第i次迭代参数θ的估计值，在第i+1次迭代的E步，计算Q函数。
 >    
@@ -969,7 +969,193 @@ pass
 >    $$
 >    P(o_{t}|i_{T},o_{T},i_{T-1},o_{T-1},\cdot \cdot \cdot , i_{t+1},o_{t+1},i_{t},i_{t-1},o_{t-1},\cdot \cdot \cdot ,i_{1},o_{1})=P(o_{t}|i_{t})
 >    $$
+
+- 观测序列的生成过程
+
+> 输入：隐马尔可夫模型λ=(A,B,π)，观测序列长度T：
+> 
+> 输出：观测序列
+> 
+> 1. 按照初始状态分布π产生首个状态;
+> 
+> 2. 按照当前状态的观测概率分布生成其观测值；
+> 
+> 3. 按照当前状态的状态转移概率分布产生下个状态
+> 
+> 4. 更新时间t，若t<T，转第2步；否则，终止。
+
+- **隐马尔可夫模型的3个基本问题**
+
+> 1. **概率计算问题**：给定模型和观测序列，计算给定模型下，**观测序列出现的条件概率**
+> 
+> 2. **学习问题**：已知观测序列，估计模型λ=(A,B,π)参数，使得在该模型下，观测序列的概率最大。即用极大似然估计的方法估计参数。
+> 
+> 3. **预测问题**：给定观测序列，**求最有可能的对应的状态序列**。也称为解码(decoding)问题。
+
+###### 概率计算算法
+
+- 直接计算法
+
+> 给定模型和观测序列，计算观测序列出现的概率。
+> 
+> 根据概率公式计算：列举所有长度为T的状态序列，计算状态序列与观测序列的联合概率，然后对所有可能的状态序列求和，得到观测序列的概率。
+> 
+> $$
+> P(O|\lambda )=\sum_{I}P(O|I,\lambda )P(I|\lambda )\newline
+>              =\sum_{i_{1},i_{2},\cdot \cdot \cdot ,i_{T}}\pi _{i_{i}}b_{i_{1}}(o_{1})a_{i_{1},i_{2}}b_{i_{2}}(o_{2})\cdot \cdot \cdot a_{i_{T-1},i_{T}}b_{i_{T}}(o_{T})
+> $$
+> 
+> 该方法的计算量很大，是O(TN<sup>T</sup>)阶的(按照时间维度，每个时刻有N个状态，共T个时刻，第一个T是怎么来的？)。
+
+- 前向算法
+
+> 前向概率：给定隐马尔可夫模型λ，定义到时刻t部分观测序列为o<sub>1</sub>,o<sub>2</sub>,...,o<sub>t</sub>，,且状态为q<sub>i</sub>的概率为前向概率。
+> 
+> $$
+> \alpha _{t}(i)=P(o_{1},o_{2},\cdot \cdot \cdot ,o_{t},i_{t}=q_{i}|\lambda )
+> $$
+> 
+> 1. 初值
 >    
+>    $$
+>    \alpha _{1}（i）=\pi _{i}b_{i}(o_{1}), i=1,2,\cdot \cdot \cdot ,N
+>    $$
+> 
+> 2.   递推，对t=1,2,...,T-1,
 >    
+>    $$
+>    \alpha _{t+1}(i)=\left [ \sum_{j=1}^{N}\alpha _{t}(j)a_{ji} \right ]b_{i}(o_{t+1}), i=1,2,...,N
+>    $$
+> 
+> 3. 给定模型和观测序列时，观测序列的概率
+>    
+>    $$
+>    P(O|\lambda )=\sum_{i=1}^{N}\alpha_{T}(i)
+>    $$
+> 
+> 基于前向概率计算P(O|λ)的计算量为O(N<sup>2</sup>T)阶
+
+- 后向算法
+
+> 后向概率：给定隐马尔可夫模型λ，定义在时刻t状态为qi的条件下，从t+1到T的部分观测序列为o<sub>t+1</sub>, o<sub>t+2</sub>,...,o<sub> T</sub>的概率为后向概率。
+> 
+> $$
+> \beta _{t}(u)=P(o_{t+1}, o_{t+2},\cdot \cdot \cdot ,o_{T}|i_{t}=q_{i},\lambda )
+> $$
+> 
+> 1.  初始化后向概率，对最终时刻在状态为q<sub>i</sub>的条件下的概率为1
+> 
+> $$
+> \beta _{T}(i)=1, i=1,2,\cdot \cdot \cdot ,N
+> $$
+> 
+> 2. 递推，对t=T-1， T-2, ..., 1
+> 
+> $$
+> \beta _{t}(i)=\sum_{j=1}^{N}a_{ij}b_{j}(o_{t+1})\beta _{t+1}(j),i=1,2,...,N
+> $$
+> 
+> 3. 给定模型和观测序列时，观测序列的概率
+> 
+> $$
+> P(O|\lambda )=\sum_{i=1}^{N}\pi _{i}b_{i}(o_{1})\beta _{1}(i)
+> $$
+> 
+> 利用前向概率和后向概率的定义，可以将观测序列概率P(O|λ)  统一写成
+> 
+> $$
+> P(O|\lambda )=\sum_{i=1}^{N}\sum_{j=1}^{N}\alpha _{t}(i)a_{ij}b_{j}(o_{t+1})\beta _{t+1}(j),t=1,2,\cdot \cdot \cdot ,T-1
+> $$
+
+- 一些概率与期望值的计算
+
+pass
+
+###### 学习算法
+
+> 训练数据包括观测序列和对应的状态序列时采用监督学习方法；
+> 
+> 训练数据仅包括观测序列时采用非监督学习方法——Baum-Welch算法(EM算法)
+
+- 监督学习方法
+
+> 1. 初始状态概率π<sub>i</sub>的估计为S个样本中初始状态为q<sub>i</sub>的频率；
+> 
+> 2. 转移概率a<sub>ij</sub>的估计。设样本中t时刻由状态i转移到t+1时刻状态j的频数为A<sub>ij</sub>，则状态转移概率a<sub>ij</sub>的估计为
+>    
+>    $$
+>    \hat{a_{ij}}=\frac{A_{ij}}{\sum_{j=1}^{N}A_{ij}}， i=1,2，\cdot \cdot \cdot ，N;j=1,2,\cdot \cdot \cdot, N
+>    $$
+> 
+> 3. 观测概率b<sub>j</sub>(k)的估计。状态为j且观测值为k的频数为B<sub>jk</sub>，则观测概率的估计为
+>    
+>    $$
+>    \hat{b}_{j}(k)=\frac{B_{jk}}{\sum_{k=1}^{M}B_{jk}}, j=1,2,\cdot \cdot \cdot ,N;k=1,2,\cdot \cdot \cdot ,M
+>    $$
+
+- Baum-Welch算法
+  
+  > 1. 初始化参数。对n=0,选取a<sub>ij</sub><sup>(0)</sup>, b<sub>j</sub><sup>(0)</sup>, π<sub>i</sub><sup>(0)</sup>，得到模型λ<sup>(0)</sup>=(A<sup>(0)</sup>, B<sup>(0)</sup>, π<sup>(0)</sup>).
+  > 
+  > 2. 递推。对n=1,2,...,
+  >    
+  >    $$
+  >    a_{ij}^{(n+1)}=\frac{\sum_{t=1}^{T-1} \xi _{t}(i,j)}{\sum_{t=1}^{T-1}\gamma _{t}(i)}\newline
+  >    b_{j}(k)^{(n+1)}=\frac{\sum_{t=1,o_{t}=v_{k}}^{T}\gamma _{t}(j)}{\sum_{t=1}^{T}\gamma _{t}(j)}\newline
+  >    \pi _{i}^{(n+1)}=\gamma _{1}(i)
+  >    $$
+  >    
+  >    其中γ<sub>t</sub>(j)表示t时刻，状态为q<sub>j</sub>的概率
+  >    
+  >    $$
+  >    \gamma _{t}(i)=\frac{\alpha _{t}(i)\beta _{t}(i)}{\sum_{j=1}^{N}\alpha _{t}(j)\beta _{t}(j)} \newline
+  >    \xi _{t}(i,j)=\frac{\alpha _{t}(i)a_{ij}b_{j}(o_{t+1})\beta _{t+1}(j)}{\sum_{i=1}^{N}\sum_{j=1}^{N}\alpha _{t}(i)a_{ij}b_{j}(o_{t+1})\beta _{t+1}(j)}
+  >    $$
+  > 
+  > 3. 终止。得到模型参数λ<sup>(n+1)</sup>=(A<sup>(n+1)</sup>, B<sup>(n+1)</sup>, π<sup>(n+1)</sup>)
+
+###### 预测算法
+
+- 近似算法
+
+> 选择每个时刻最有可能出现的状态i<sub>t</sub><sup>\*</sup>，从而得到一个状态序列I<sup>\*</sup>=(i<sub>1</sub><sup>\*</sup>, i<sub>2</sub><sup>\*</sup>, ..., i<sub>T</sub><sup>\*</sup>)作为预测结果。
+> 
+> $$
+> \gamma _{t}(i)=\frac{\alpha _{t}(i)\beta _{t}(i)}{\sum_{j=1}^{N}\alpha _{t}(j)\beta _{t}(j)} \newline
+> i_{t}^{*}=arg \max\limits_{1\leq i\leq N} \left [ \gamma _{t}(i) \right ],t=1,2,\cdot \cdot \cdot ,T
+> $$
+> 
+> 该算法优点是计算简单；缺点是不能保证预测的状态序列整体是最优可能的状态序列。该算法得到的状态序列中可能存在转移概率为0的相邻状态.尽管如此，该算法仍然是有用的。
+
+- 维特比算法
+
+> 基于动态规划求解概率最大的路径(最优路径)。最优路径的子路径仍然是最优的。
+> 
+> 1. 初始化。其中δ<sub>t</sub>(i)表示t时刻状态为i的所有单个路径中的概率最大值，Ψ<sub>t</sub>(i)表示t时刻状态为i的所有单个路径中概率最大的路径的第t-1个结点。
+>    
+>    $$
+>    \delta _{1}(i)=\pi _{i}b_{i}(o_{1}), i=1,2,\cdot \cdot \cdot ,N \newline
+>    \Psi_{1}(i)=0, i=1,2,\cdot \cdot \cdot ,N
+>    $$
+> 
+> 2. 递推，对t=2,3,...,T 
+>    
+>    $$
+>    \delta _{t}(i)=\max \limits_{1\leq j\leq N}\left [ \delta _{t-1}(j)a_{ji} \right ]b_{i}(o_{t}), i=1,2,\cdot \cdot \cdot, N \newline
+>    \Psi_{t}(i)=arg \max\limits_{1\leq j\leq N}\left [ \delta _{t-1}(j) a_{ji} \right ], i=1,2,\cdot \cdot \cdot ,N
+>    $$
+> 
+> 3.  终止。
+>    
+>    $$
+>    P^{*}=\max\limits_{1\leq i\leq N}\delta _{T}(i)\newline
+>     i_{T}^{*}=arg \max\limits_{1\leq i\leq N}\left [ \delta _{T}(i) \right ]
+>    $$
+>    
+>    4. 最优路径回溯。对t=T-1,T-2,...1，利用如下关系式得到最优路径I<sup>\*</sup>=(i<sub>1</sub><sup>\*</sup>, i<sub>2</sub><sup>\*</sup>, ..., i<sub>T</sub><sup>\*</sup>)
+>    
+>    $$
+>    i_{t}^{*}=\Psi _{t+1}(i_{t+1}^{*})
+>    $$
 
 
