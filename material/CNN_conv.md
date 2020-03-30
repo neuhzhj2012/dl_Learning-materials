@@ -8,6 +8,8 @@
 > 
 >  [A Comprehensive Introduction to Different Types of Convolutions in Deep Learning](https://towardsdatascience.com/a-comprehensive-introduction-to-different-types-of-convolutions-in-deep-learning-669281e58215)
 > 
+> [A Basic Introduction to Separable Convolutions](https://towardsdatascience.com/a-basic-introduction-to-separable-convolutions-b99ec3102728)
+> 
 > [cs231n\_convolution](http://cs231n.github.io/convolutional-networks/#conv)
 > 
 > [Intuitively Understanding Convolutions for Deep Learning](https://towardsdatascience.com/intuitively-understanding-convolutions-for-deep-learning-1f6f42faee1)
@@ -224,6 +226,8 @@
 - 点卷积
 
 ![img](../img/Basic_Conv_pointwise_1_1.png)
+
+图片来自[这里](https://towardsdatascience.com/a-basic-introduction-to-separable-convolutions-b99ec3102728)
 
 > 利用 1*1的卷积核对不同通道的特征图进行组合的操作。
 
