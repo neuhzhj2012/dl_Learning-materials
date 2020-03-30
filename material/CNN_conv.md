@@ -221,9 +221,11 @@
 > 
 > **与Spatial Transformer Network(STN)的差异**：[STN](https://towardsdatascience.com/review-stn-spatial-transformer-network-image-classification-d3cbd98a70aa)应用的对象为特征图或卷积核；可变性卷积应用的对象为卷积核，可看作轻量级的STN。
 
-
-
 - 点卷积
+
+![img](../img/Basic_Conv_pointwise_1_1.png)
+
+> 利用 1*1的卷积核对不同通道的特征图进行组合的操作。
 
 - 深度卷积
 
