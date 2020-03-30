@@ -213,6 +213,16 @@
 
 - 可变形卷积
 
+![img](../img/Basic_Conv_deformable.jpg)
+
+> [可变性卷积](https://towardsdatascience.com/review-dcn-deformable-convolutional-networks-2nd-runner-up-in-2017-coco-detection-object-14e488efce44)用于解决具有复杂几何形变物体的特征提取。这主要是通过对卷积神经网络引入学习空间几何形变的能力来实现的，如物体的尺度变换、比例变换和旋转变换等。具体的如上图左侧，通过对输入特征图(共N个)的每个通道进行卷积获得2N个(x和y方向)对应输入位置偏移量的特征图；池化操作时先进行常规池化处理，得到输出特征图，如右图上侧，然后利用全连接层输出k\*k\*2*N个值，分别对应标准池化后每个点的偏移量。
+> 
+> **与空洞卷积的差异**：空洞卷积的空洞值是固定的，且卷积核中相邻元素间的空洞值相同；可变性卷积的空洞值是学出来的，卷积核中相邻元素的空洞值是变化的。
+> 
+> **与Spatial Transformer Network(STN)的差异**：[STN](https://towardsdatascience.com/review-stn-spatial-transformer-network-image-classification-d3cbd98a70aa)应用的对象为特征图或卷积核；可变性卷积应用的对象为卷积核，可看作轻量级的STN。
+
+
+
 - 点卷积
 
 - 深度卷积
