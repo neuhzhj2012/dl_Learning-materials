@@ -227,13 +227,33 @@
 
 ![img](../img/Basic_Conv_pointwise_1_1.png)
 
-图片来自[这里](https://towardsdatascience.com/a-basic-introduction-to-separable-convolutions-b99ec3102728)
+                                                            图片来自[这里](https://towardsdatascience.com/a-basic-introduction-to-separable-convolutions-b99ec3102728)
 
-> 利用 1*1的卷积核对不同通道的特征图进行组合的操作。
+> 输入输出特征数不同。利用 1*1的卷积核对不同通道的特征图进行组合的操作，增加特征的非线性表达。用来实现输入输出通道数的改变，用于bottleneck结构、inception结构、深度可分离卷积结构等。
 
 - 深度卷积
 
+![img](../img/Model_conv_DepthwiseConvolution.png)
+
+                                                    图片来自[这里](https://medium.com/@chih.sheng.huang821/%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92-mobilenet-depthwise-separable-convolution-f1ed016b3467)
+
+> 输入输出通道数相同。对输入特征图的每个通道分别进行卷积，得到输出特征图对应通道上的结果。
+
+- 分组卷积
+
+![img](../img/Basic_Conv_group.png)
+
+                                                        图片来自[这里](https://towardsdatascience.com/a-comprehensive-introduction-to-different-types-of-convolutions-in-deep-learning-669281e58215)
+
+> 分组卷积主要应用于早期计算资源受限的情况下，无法在一个GPU上进行模型的训练，故将其划分不同的组合分别进行卷积运算。即通过分组的方式减少计算量。
+
 - 通道shuffle卷积
+
+![img](../img/Basic_Conv_ShuffledGrouped.png)
+
+                                                图片来自[这里](https://towardsdatascience.com/a-comprehensive-introduction-to-different-types-of-convolutions-in-deep-learning-669281e58215)
+
+> 目的：混合来自不同滤波器的特征值。针对利用分组卷积时，特征仅来自上层组内的特征图的问题，通过将通道混合，增强特征表达力。
 
 ###### 组合卷积
 
@@ -242,6 +262,17 @@
 - bottleneck
 
 - 深度可分离卷积
+
+![img](../img/Model_conv_Depthwise_seperable_convolution.png)
+
+                                                            图片来自[这里](https://medium.com/@chih.sheng.huang821/%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92-mobilenet-depthwise-separable-convolution-f1ed016b3467)
+
+> Depthwise separable convolution将标准卷积在一个阶段完成的操作分为两步来完成：先进行深度卷积，再进行点卷积。大大降低了模型的计算量(约为标准卷积计算量的1/k<sup>2</sup>)，
+> 
+> $$
+> \frac{calculation(depthwise seperable convolution)}{calculation(standard convolution)}= \frac{W\cdot H\cdot N_{in}\cdot K\cdot K + W\cdot H\cdot N_{in}\cdot N_{out}}{W\cdot H\cdot N_{in}\cdot K\cdot K\cdot N_{out}} \newline
+> = \frac{1}{N_{out}} + \frac{1}{K\cdot K}\approx \frac{1}{K\cdot K}
+> $$
 
 - inception
 
