@@ -12,6 +12,8 @@
 > 
 > [cs231n\_convolution](http://cs231n.github.io/convolutional-networks/#conv)
 > 
+> [CNN_Architectures_cs231n_2017_lecture9.pdf](http://cs231n.stanford.edu/slides/2017/cs231n_2017_lecture9.pdf)
+> 
 > [Intuitively Understanding Convolutions for Deep Learning](https://towardsdatascience.com/intuitively-understanding-convolutions-for-deep-learning-1f6f42faee1)
 > 
 > [如何理解空洞卷积（dilated convolution）？](https://www.zhihu.com/question/54149221)
@@ -257,9 +259,15 @@
 
 ###### 组合卷积
 
-- 分组卷积
+- bottleneck层
 
-- bottleneck
+| inceptionn                                    | resnet                                     |
+|:---------------------------------------------:|:------------------------------------------:|
+| ![img](../img/Model_bottleneck_inception.jpg) | ![img](../img/Model_bottleneck_resnet.jpg) |
+
+                                                                图片来自[这里](http://cs231n.stanford.edu/slides/2017/cs231n_2017_lecture9.pdf)
+
+> 输入层具有较大的通道数(如上右侧256个)，经过1\*1的卷积后输出通道数大大减少(如上右侧64个)，通道参数的变化类似瓶颈，故称之为bottleneck层。bottleneck层是为了减少参数量。
 
 - 深度可分离卷积
 
@@ -274,9 +282,15 @@
 > = \frac{1}{N_{out}} + \frac{1}{K\cdot K}\approx \frac{1}{K\cdot K}
 > $$
 
+###### 卷积+运算
+
 - inception
 
-###### 卷积+运算
+![img](../img/Model_inceptionV1.jpg)
+
+                                                            图片来自[这里](http://cs231n.stanford.edu/slides/2017/cs231n_2017_lecture9.pdf)
+
+> 
 
 - 残差模块
 
