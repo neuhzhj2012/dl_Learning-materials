@@ -307,18 +307,29 @@
 > 3. 深层网络容易过拟合，且不易训练(resnet之前)；
 > 
 > 4. 堆叠大卷积核时计算量很大。
+> - V1版本按照上述初衷进行实现，为减少计算量加入了1\*1的卷积。ps 最右侧的1\*1卷积位于池化操作后。
 > 
-> V1版本按照上述初衷进行实现，为减少计算量加入了1\*1的卷积。ps 最右侧的1\*1卷积位于池化操作后。
+> - V2和V3版本在同一篇[论文](https://arxiv.org/pdf/1512.00567v3.pdf)中，其中V2版本主要是对V1版本中的卷积核进行分解：5\*5的卷积核分解为2个3\*3的卷积核; 将1个3\*3的卷积核分解为1\*3和3\*1的两个卷积核；为了增加inception的宽度，将叠加的1\*3和3\*1的卷积进行并行的处理。探讨了进一步分解为更小卷积核的可能，结果发现非对称卷积1\*n和n\*1卷积的效果比2\*2卷积核的效果好，且非对称卷积只对特定大小的特征图有较好的效果：对特征图为12到20的大小时效果较好，此时n=7；对特征图大小为35、17和8的三种情况分别设计了Model A，Model B和Model C进行处理。V3在V2实验基础上增加了7\*7卷积核的分解；辅助分类分支仅在网络训练的最后阶段起作用(即准确率接近饱和时)，其作用相当于对网络增加了正则项，尤其是增加BatchNorm或DropOut后;对损失函数增加正则部分，减小网络分类的置信度，防止过拟合。
+>   
+>   1. RMSProp Optimizer.
+>   
+>   2. Factorized 7x7 convolutions.
+>   
+>   3. BatchNorm in the Auxillary Classifiers.
+>   
+>   4. Label Smoothing (A type of regularizing component added to the loss formula that prevents the network from becoming too confident about a class. Prevents over fitting).
 > 
-> V2和V3版本在同一篇论文中，其中V2版本主要是对V1版本中的卷积核进行分解：5\*5的卷积核分解为2个3\*3的卷积核; 将1个3\*3的卷积核分解为1\*3和3\*1的两个卷积核；为了增加inception的宽度，将叠加的1\*3和3\*1的卷积进行并行的处理。探讨了进一步分解为更小卷积核的可能，结果发现非对称卷积1\*n和n\*1卷积的效果比2\*2卷积核的效果好，且非对称卷积只对特定大小的特征图有较好的效果：对特征图为12到20的大小时效果较好，此时n=7。V3在V2实验基础上增加了7\*7卷积核的分解；辅助分类分支上增加BatchNorm;对损失函数增加正则部分，减小网络分类的置信度，防止过拟合。
+> - V4和Inception-ResnetV1,V2版本出现在同一篇[论文](https://arxiv.org/pdf/1602.07261.pdf)。之前版本中网络的主干部分(论文中指i使用inception前)各不相同，且较为复杂。V4版本旨在对该主干部分进行统一，且使用类似V2中的Model A,B,C用于该版本中，另外增加了两个改变特征图大小的reduction 模块，分别将特征图从35降为17和从17降为8的inception模块。计算量方面，Inception-ResnetV1与InceptionV3接近，Inception-ResnetV2与InceptionV4接近；主干网方面，InceptionV4与Inception-ResnetV2的相同，与Inception-ResnetV1的不同；Inception方面，InceptionV4与Inception-ResnetV1,V2均使用了Model ABC和Reduction模块，只是参数不同，Inception-Resnet中ModelABC模块均去除了池化部分并且在输出部分增加了1\*1卷积，且同一版本中存在基于Recudtion不同的smaller和wider版本。
 > 
-> 
+> | V4 Model ABC                                          | V4 Reduction Model                                          |
+> |:-----------------------------------------------------:|:-----------------------------------------------------------:|
+> | ![img](../img/Model_inceptionV4_ModelABC.jpeg)        | ![img](../img/Model_inceptionV4_reduced_blocks.jpeg)        |
+> | inception-resnetV1 Model ABC                          | inception-resnetV1 Reduction Model                          |
+> | ![img](../img/Model_inception-resnetV1_ModelABC.jpeg) | ![img](../img/Model_inception-resnetV1_reduced_blocks.jpeg) |
 
 - 残差模块
 
 ![img](../img/Model_resnet2.png)
-
-> 
 
 - 反残差模块
 
