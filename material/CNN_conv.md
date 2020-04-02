@@ -331,13 +331,39 @@
 
 ![img](../img/Model_resnet2.png)
 
+> 残差模块名称的由来：一般的通过网络学习输入x与输出H(x)的映射关系，残差网络中旨在学习输入x和网络的部分输出f(x)与输出H(x)的映射关系，由于x为恒等映射，故残差网络实际学习的是H(x)-x部分的映射关系，即残差部分。
+> 
+> 加入bottleneck结构(上图右侧)是为了减少训练时间。
+
 - 反残差模块
 
 ![img](../img/Model_inverted_resnet.png)
 
-- 稠密卷积
+> 形状上：残差模块形状为两头大，中间小。反残差模块形状为两头小，中间大；
+> 
+> 设计依据：
+> 
+> 1. 网络的特征图可以在低维空间(通道数)进行编码；
+> 
+> 2. RELU激活函数会导致低维特征的信息损失。
+> 
+> **feature maps** are able to be encoded in low-dimensional subspaces；
+> 
+> **non-linear activations** result in information loss in spite of their ability to increase representational complexity
 
-![img](../img/Model_ResNet_Vs_DenseNet.png)
+- [稠密卷积](https://towardsdatascience.com/review-densenet-image-classification-b6631a8ef803)
+
+![img](../img/Model_DenseNet.gif)
+
+>  **原始稠密卷积**：将输入经过BN、线性激活和卷积后得到卷积结果，并将其与输入部分级联后得到稠密卷积的输出；
+> 
+> ![img](../img/Model_Densenet_Bottleneck.png)
+> 
+> **增加bottleneck后的稠密卷积**：在原始卷积前增加了bottleneck模块；
+> 
+> 该模块与残差模块不同之处见下图。
+> 
+> ![img](../img/Model_ResNet_Vs_DenseNet.png)
 
 ###### 参考代码
 
