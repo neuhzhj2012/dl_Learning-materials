@@ -15,13 +15,59 @@
 
 pass
 
-###### FPN
+###### [FPN](https://medium.com/@jonathan_hui/understanding-feature-pyramid-networks-for-object-detection-fpn-45b227b9106c)
 
-> FPN结构在高层的语义特征进行融合效果并不好
+![img](../img/Model_FPN.png)
+
+                                  图片来自[这里](https://medium.com/@jonathan_hui/understanding-feature-pyramid-networks-for-object-detection-fpn-45b227b9106c)——基于FPN骨干网的检测网络
+
+> 缺点：FPN结构在高层的语义特征进行融合效果并不好，所以FCOS中P6和P7是由P5依次卷积得到，而不是从P7上采样然后融合自下向上的特征得到P6。
+> 
+> **FPN用于特征提取**，分**自下向上**和**自上向下**两个数据流。
+> 
+> 自下向上数据流：用于提取高层的语义特征，特征图的分辨率依次减小1/2；
+> 
+> 自上向下数据流：用于不同语义的预测，采用双线性插值的方法提高特征图分辨率；
+> 
+> 两个数据流的融合：除最小的特征图外，将自下向上数据流中的特征图通过1\*1的卷积核与自上向下数据流中的特征图相加。这是因为具有较强语义的特征图中物体的位置信息不准确，故将其与浅层特征进行融合。同时为消除融合过程中产生的混叠现象(棋盘格)，对融合后的特征利用3\*3的卷积核进行处理。
+> 
+> 整个处理流程如下。
+> 
+>  ![ img](../img/Pipline_FPN.png)
+> 
+> **FPN+RPN**
+> 
+> pass
 
 ##### 网络
 
+Faster-RCNN
+
+![img](../img/Pipline_Faster-Rcnn.png)
+
+                                                                图片来自
+
+[这里](https://medium.com/@jonathan_hui/understanding-feature-pyramid-networks-for-object-detection-fpn-45b227b9106c)
+
+- 主要贡献
+
+> 1. 提出用RPN生成候选区域
+> 
+> 2. 融合RPN至检测算法流程中，实现端到端训练
+> 
+> 3. 为其他算法提供参考框架
+
+- 训练中的正负样本
+
+- 问题及解决方法
+
+> 1. proposal区域归一化问题
+> 
+> 2. 
+
 ###### [FCOS: Fully Convolutional One-Stage Object Detection](https://zhuanlan.zhihu.com/p/62869137)
+
+![img](../img/Pipline_FCOS.jpg)
 
 - 主要贡献：
 
@@ -29,7 +75,7 @@ pass
 > 
 > 2. anchor-free、proposal free的检测算法；
 > 
-> 3. 提出像素点的中心性(center-ness)
+> 3. 提出像素点的中心性(center-ness)来滤除低质量的预测框；
 > 
 > 4. 为其他实例级任务提供可选框架(将实例级任务变为像素级任务处理)；
 
@@ -39,22 +85,28 @@ pass
 
 > 物体外接矩形框内的点为正样本；
 > 
-> 不同物体重叠部分的点视为模糊样本，此时该点仅用于描述面积最小的框
+> 不同物体重叠部分的点视为模糊样本，此时该点仅用于描述面积最小的框；
+> 
+> 具体到FPN每层特征图的像素时，则根据GT是否在当前层和像素是否在当前层的GT内来判断正负样；
+
+- 损失函数
+
+![img](../img/Loss_FCOS.png)
 
 - 问题及解决方法
 1. 召回率低
 
 > YOLOV1仅使用中心点进行回归，预测边框的召回率低。
 > 
-> FCOS使用GT内的所有点进行回归，并利用center-ness抑制了低质量的框。
+> FCOS使用FPN+GT内的所有点进行回归，并利用center-ness抑制了低质量的框来提高检测的召回率；
 
 2. 像素的模糊性(像素同时属于不同物体)
 
-> FCOS使用不同的head分别预测不同大小的物体。因为重叠物体的尺度变化非常大，基于FPN的多尺度检测可以在不同层检测不同大小的物体，从而减少大物体包含小物体的情况。
+> FCOS使用FPN的不同层分别预测不同大小的物体。因为重叠物体的尺度变化非常大，基于FPN的多尺度检测可以在不同层检测不同大小的物体，从而减少大物体包含小物体的情况。
 
-3. center-ness
+3. 低质量的预测框
 
-> 表示GT内像素点到物体中心的距离，
+> 使用center-ness(像素的中心性)来解决。center-ness表示GT内像素点到物体中心的距离;
 > 
 > 训练时利用二分类交叉熵计算像素点到中心点的损失；
 > 
