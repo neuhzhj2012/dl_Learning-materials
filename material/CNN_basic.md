@@ -52,9 +52,7 @@
 > MAX_EXP = 709
 > def sigmoid(x):
 >     x = np.clip(x, -MAX_EXP, None) #限定x的下边界(-MAX_EXP, )
-
->     return 1 / (1 + np.exp(-x)) 
-
+>     return 1 / (1 + np.exp(-x))
 > ```
 
 - softmax
@@ -83,13 +81,7 @@
 > 
 > [softmax的微分](https://deepnotes.io/softmax-crossentropy)
 > 
-> 
-> 
-> $$
-> 
-> $$
-> 
-> 
+> pass
 
 ###### 损失函数
 
@@ -99,48 +91,43 @@
 > L=-\sum_{i=1}^{n}y_{i}log\hat{y}_{i}
 > $$
 > 
-> 其中y<sub>i</sub>表示第i个样本的类别(one-hot向量)，y<sup>^</sup> <sub>i</sub>表示该样本预测的类别信息(由sigmoid或softmax计算的概率值，数学上可以保证该概率值位于(0,1)间，但是计算机的表示范围有限，可能出现0的情况，导致上式直接溢出变成nan，所以需要对y<sup>^</sup><sub>i</sub>概率的上下界进行调整，通常使用很小的数ε表示0，则1相应的表示为1-ε)。
+> 其中**y<sub>i</sub>表示第i个样本的one-hot向量，y<sup>^</sup> <sub>i</sub>表示该样本预测的类别概率值**(由sigmoid或softmax计算的概率值，数学上可以保证该概率值位于(0,1)间，但是计算机的表示范围有限，可能出现0的情况，导致上式直接溢出变成nan，所以需要对y<sup>^</sup><sub>i</sub>概率的上下界进行调整，通常使用很小的数ε表示0，则1相应的表示为1-ε)。
 > 
 > 由于计算中会设计到数值稳定性问题，故将激活函数和交叉熵损失函数进行合并，在一个公式中进行运算
 > 
 > ```
 > EPS = 1e-9
 > def cross_entropy(y, y_hat):
->     y_hat = np.clip(y_hat, EPS, 1-EPS) #限定y_hat上下界
-
->     return -np.sum(y * np.log(y_hat))
+>  y_hat = np.clip(y_hat, EPS, 1-EPS) #限定y_hat上下界
+>  return -np.sum(y * np.log(y_hat))
 > ```
 > 
 > 1. softmax+cross entropy
-> 
-> 将softmax公式代入cross entropy可得如下计算公式。
-> 
-> $$
-> L=-\sum_{i=1}^{n}y_{i}log\hat{y}_{i}\newline
-> =-\sum_{i=1}^{n}y_{i}log\frac{e^{x_{i}}}{\sum_{j=1}^{n}e^{x_{j}}} \newline
-> = -\sum_{i=1}^{n}y_{i}(x_{i}-log\sum_{j=1}^{n}e^{x_{j}})\newline
-> = -\sum_{i=1}^{n}y_{i}x_{i} + \sum_{i=1}^{n}y_{i}log\sum_{j=1}^{n}e^{x_{j}}
-> $$
+>    将softmax公式代入cross entropy可得如下计算公式。
+>    
+>    $$
+>    L=-\sum_{i=1}^{n}y_{i}log\hat{y}_{i}\newline
+>    =-\sum_{i=1}^{n}y_{i}log\frac{e^{x_{i}}}{\sum_{j=1}^{n}e^{x_{j}}} \newline
+>    = -\sum_{i=1}^{n}y_{i}(x_{i}-log\sum_{j=1}^{n}e^{x_{j}})\newline
+>    = -\sum_{i=1}^{n}y_{i}x_{i} + \sum_{i=1}^{n}y_{i}log\sum_{j=1}^{n}e^{x_{j}}
+
+>    $$
 > 
 > 由于指数函数的数据稳定性问题，所以需要对其做如下处理。
 > 
 > $$
-> log\sum_{i=1}^{n}e^{x_{i}}=log(e^{\alpha }\sum_{i=1}^{n}e^{x_{i}-\alpha }) \newline
->  =\alpha +log(\sum_{i=1}^{n}e^{x_{i}-\alpha }) \newline
-> s.t. \:\alpha =max(x_{i})
-> 
+> log\sum_{i=1}^{n}e^{x_{i}}=log(e^{\alpha }\sum_{i=1}^{n}e^{x_{i}-\alpha }) \newline =\alpha +log(\sum_{i=1}^{n}e^{x_{i}-\alpha }) \newline s.t. :\alpha =max(x_{i})
 > $$
 > 
 > ```
 > def softmax_cross_entropy(x, y):
->     max_x = np.max(x)
->     log_exp = max_x + np.log(np.sum(np.exp(x - max_x)))
->     return -np.sum(x * y) + np.sum(y) * log_exp
+>  max_x = np.max(x)
+>  log_exp = max_x + np.log(np.sum(np.exp(x - max_x)))
+>  return -np.sum(x * y) + np.sum(y) * log_exp
 > ```
 > 
 > 2. sigmoid+cross entropy
-> 
-> 将sigmoid公式代入cross entropy，可得如下公式。
+>    将sigmoid公式代入cross entropy，可得如下公式。
 > 
 > $$
 > L=-\sum_{i=1}^{n}y_{i}log\hat{y}_{i}\newline
@@ -148,20 +135,20 @@
 > =\sum_{i=1}^{n}y_{i}log(1+e^{-x_{i}})
 > $$
 > 
-> 当e<sup>-x<sub>i</sub></sup>数值较大时，可能溢出，此时用-x<sub>i</sub>替代log(1+e<sup>-x<sub>i</sub></sup>)。 
+> 当e<sup>-x<sub>i</sub></sup>数值较大时，可能溢出，此时用-x<sub>i</sub>替代log(1+e<sup>-x<sub>i</sub></sup>)。  
 > 
 > ```
 > MAX_EXP = 709
 > def sigmoid_cross_entropy(x, y):
 >  for xi in np.nditer(x, op_flags=['readwrite']):
 >  if xi < -MAX_EXP:
->  xi[...] = -xi
+>    xi[...] = -xi
 >  else:
->  xi[...] = math.log(1 + math.exp(-xi))
+>    xi[...] = math.log(1 + math.exp(-xi))
 >  return np.sum(y * x)
 > ```
 > 
-> 3. softmax/sigmoid + cross entropy合并处理后效果更好，因为分阶段处理时(先计算概率值，然后计算损失)，由于计算机精度的原因，小概率会舍入到0，然后增大到设定的值EPS，所以交叉熵中取对数后值变小了。
+> 3. softmax/sigmoid + cross entropy合并处理后效果更好，因为分阶段处理时(先计算概率值，然后计算损失)，由于计算机精度的原因，概率小的值会舍入到0，然后增大到设定的值EPS，所以交叉熵中取对数后值变小了。单个样本的示例如下，多个样本的示例见[这里](https://stackoverflow.com/questions/34240703/what-is-logits-softmax-and-softmax-cross-entropy-with-logits)
 > 
 > ```
 > import numpy as np
@@ -201,10 +188,10 @@
 > print(softmax(x))
 > print(cross_entropy(y, softmax(x)))
 > print(softmax_cross_entropy(x, y))
-> # outputs:
-> # [0. 0. 0. 1.]
-> # 20.72326583694641
-> # 3999.0
+> >> outputs:
+> >> [0. 0. 0. 1.]
+> >> 20.72326583694641
+> >> 3999.0
 > 
 > x = np.array([1, 1, -4000, -4000])
 > y = np.array([0, 0, 0, 1])
@@ -213,12 +200,12 @@
 > print(cross_entropy(y, sigmoid(x)))
 > print(cross_entropy(y, expit(x)))
 > print(sigmoid_cross_entropy(x, y))
-> # outputs:
-> # [7.31058579e-001 7.31058579e-001 1.21678075e-308 1.21678075e-308]
-> # [0.73105858 0.73105858 0.         0.        ]
-> # 20.72326583694641
-> # 20.72326583694641
-> # 4000
+> >> outputs:
+> >> [7.31058579e-001 7.31058579e-001 1.21678075e-308 1.21678075e-308]
+> >> [0.73105858 0.73105858 0.         0.        ]
+> >> 20.72326583694641
+> >> 20.72326583694641
+> >> 4000
 > ```
 
 ### 网络模块及作用
