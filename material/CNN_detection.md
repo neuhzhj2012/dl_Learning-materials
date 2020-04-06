@@ -45,9 +45,7 @@ Faster-RCNN
 
 ![img](../img/Pipline_Faster-Rcnn.png)
 
-                                                                图片来自
-
-[这里](https://medium.com/@jonathan_hui/understanding-feature-pyramid-networks-for-object-detection-fpn-45b227b9106c)
+                                                              图片来自[这里](https://medium.com/@jonathan_hui/understanding-feature-pyramid-networks-for-object-detection-fpn-45b227b9106c)
 
 - 主要贡献
 
