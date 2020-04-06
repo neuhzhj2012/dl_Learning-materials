@@ -1,5 +1,7 @@
 ## 文章
 
+- [传统检测和深度学习检测流程](https://www.slideshare.net/xavigiro/deep-learning-for-computer-vision-object-detection-upc-2016)
+
 - [Review: DenseNet — Dense Convolutional Network (Image Classification)](https://towardsdatascience.com/review-densenet-image-classification-b6631a8ef803)
 
 - [Understanding Feature Pyramid Networks for object detection (FPN)](https://medium.com/@jonathan_hui/understanding-feature-pyramid-networks-for-object-detection-fpn-45b227b9106c)
