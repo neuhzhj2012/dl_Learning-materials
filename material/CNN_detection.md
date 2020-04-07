@@ -71,6 +71,10 @@ Faster-RCNN
 > 
 > 即：样本中心点位于输出层特征点映射到原图区域时，则为正样本，否则为负样本。不过**预测值与G的IOU值是在输出层大小上进行，而不是在原图大小上计算的**。
 
+- 损失函数，函数部分可参考该[darkflow](https://github.com/thtrieu/darkflow)
+
+![img](../img/Loss_yolov1.png)
+
 ###### [FCOS: Fully Convolutional One-Stage Object Detection](https://zhuanlan.zhihu.com/p/62869137)
 
 ![img](../img/Pipline_FCOS.jpg)
