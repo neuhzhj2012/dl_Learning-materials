@@ -60,8 +60,16 @@ Faster-RCNN
 - 问题及解决方法
 
 > 1. proposal区域归一化问题
+
+[YOLOV1](https://docs.google.com/presentation/d/1aeRvtKG21KHdD5lg6Hgyhx5rPq_ZOsGjG5rJ1HP7BbA/pub?start=false&loop=false&delayms=3000&slide=id.p)
+
+![img](../img/Det_yolov1_box.png)
+
+- 训练中的正负样本
+
+> 将GT坐标换算到网络输出层维度中(7\*7\*30)，然后根据网络预测值与当前分辨率下GT的坐标计算IOU，将其转换为当前预测值是否为物体的权重。具体的，首先初始化输出层所有位置[S\*S, B, 4]的坐标位置为0; 然后计算GT转换到7\*7输出层的中心点相对于栅格起点(中心点取整时的坐标)的偏移坐标和宽高归一化值；接着根据预测值计算其与GT的IOU，并将IOU应用于是否为物体的权重中；
 > 
-> 2. 
+> 即：样本中心点位于输出层特征点映射到原图区域时，则为正样本，否则为负样本。不过**预测值与G的IOU值是在输出层大小上进行，而不是在原图大小上计算的**。
 
 ###### [FCOS: Fully Convolutional One-Stage Object Detection](https://zhuanlan.zhihu.com/p/62869137)
 
