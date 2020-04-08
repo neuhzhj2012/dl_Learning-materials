@@ -39,6 +39,26 @@ pass
 > 
 > pass
 
+[Proposal Pooling](https://towardsdatascience.com/understanding-region-of-interest-part-2-roi-align-and-roi-warp-f795196fc193)
+
+| ROIAlign & ROIPooling                        | ROIWarp                          |
+| -------------------------------------------- | -------------------------------- |
+| ![img](../img/Model_ROIAlign_ROIPooling.png) | ![img](../img/Model_ROIWarp.png) |
+
+> 三种池化的对比，从左到右以此为ROIAlign, ROIPooling, ROIWarp操作。其中**红框为ROI区域，橘色为实际池化区域，蓝色(包括浅蓝色)为池化时舍弃区域，绿色为池化时的额外区域**。
+
+> 1. ROI Pooling。存在两次量化过程：坐标量化和等分区域的量化。
+> 
+> ![img](../img/Model_ROI_Pooling.png)
+> 
+> 2. ROI Warp。存在一次量化操作：坐标量化，区域内的值采用双线性插值的方法获得4个点的像素值；
+> 
+> ![img](../img/Model_ROI_Warp.png)
+> 
+> 3. ROI Align。无量化操作。通过将ROI区域等分后，在每个小grid中再等分3份，即小box内共四个点，然后利用双线性插值的方法获得对应的像素值。
+> 
+> ![img](../img/Model_ROI_Align.png)
+
 ##### 网络
 
 Faster-RCNN
