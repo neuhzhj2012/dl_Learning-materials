@@ -19,6 +19,10 @@
 
 ![img](../img/Model_NMS.png)
 
+[SmoothL1/IOU/GIOU/DIOU/CIOU loss](http://bbs.cvmart.net/topics/1436)
+
+pass# 目标检测回归损失函数简介：SmoothL1/IoU/GIoU/DIoU/CIoU Loss
+
 ###### [FPN](https://medium.com/@jonathan_hui/understanding-feature-pyramid-networks-for-object-detection-fpn-45b227b9106c)
 
 ![img](../img/Model_FPN.png)
