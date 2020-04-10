@@ -92,7 +92,11 @@ Faster-RCNN
 > 
 > 3. 为其他算法提供参考框架
 
-- 训练中的正负样本
+- [训练中的正负样本](https://github.com/endernewton/tf-faster-rcnn/blob/master/lib/layer_utils/proposal_target_layer.py)
+
+> 正样本：与gt的iou大于0.5的proposal区域
+> 
+> 负样本：与gt的iou在[0.1, 0.5]间的proposal区域
 
 - 问题及解决方法
 
