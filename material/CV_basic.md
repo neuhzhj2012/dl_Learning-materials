@@ -74,3 +74,19 @@
 > 剩余锚框与gt-box计算交并比，如果大于阈值则为当前锚框分配真实边界框；
 
 6. [检测算法评估标准](https://github.com/rafaelpadilla/Object-Detection-Metrics)，直观理解详见[这里](https://medium.com/@jonathan_hui/map-mean-average-precision-for-object-detection-45c121a31173)
+- NAS
+1. 搜索空间
+
+2. 搜索算法
+
+> 基于RL的搜索算法
+> 
+> 基于梯度的搜索算法
+> 
+> 基于进化搜索算法
+> 
+> 搜索算法比较：
+> 
+> 进化搜索能够很好地满足限制因素（如FLOPs或速度）。为了优化FLOPs或速度，基于RL的方法需要对反馈函数仔细调参。而基于梯度的方法则需要对损失函数仔细调参。
+
+
