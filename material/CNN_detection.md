@@ -7,7 +7,7 @@
 ###### anchor
 
 > - 缺点：
-> 1. 在哪那些层使用anchor(即anchor的大小，不同特征图上使用不同大小的anchor)、每个位置的anchor数量、anchor的宽高比参数等需要人工参与或聚类得到；
+> 1. 在哪些层使用anchor(即anchor的大小，不同特征图上使用不同大小的anchor)、每个位置的anchor数量、anchor的宽高比参数等需要人工参与或聚类得到；
 > 
 > 2. 计算anchor与GT间IOU时的阈值参数；
 > 
@@ -15,9 +15,9 @@
 > 
 > 4. 基于anchor获得训练的正负样本大量失衡，计算IOU运算比较耗时；
 
-###### NMS
+###### [NMS](https://medium.com/@chih.sheng.huang821/%E6%A9%9F%E5%99%A8-%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92-%E7%89%A9%E4%BB%B6%E5%81%B5%E6%B8%AC-non-maximum-suppression-nms-aa70c45adffa)
 
-pass
+![img](../img/Model_NMS.png)
 
 ###### [FPN](https://medium.com/@jonathan_hui/understanding-feature-pyramid-networks-for-object-detection-fpn-45b227b9106c)
 
