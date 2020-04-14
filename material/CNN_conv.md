@@ -197,7 +197,7 @@
 > st. \: a=(i+2p−k) mod (s)
 > $$
 > 
-> | 原卷积                               | 转置卷积                                         |
+> | 原卷积                               | 带额外填充区域的转置卷积                                 |
 > | --------------------------------- | -------------------------------------------- |
 > | ![img](../img/Basic_Conv_odd.gif) | ![img](../img/Basic_Conv_odd_transposed.gif) |
 
@@ -584,5 +584,5 @@ def separable_convolution2d(
                                         kernel_size=[1, 1],
                                         scope=sc+'/pointwise_conv')
     bn = slim.batch_norm(pointwise_conv, scope=sc+'/pw_batch_norm')
-    return bn
+    return bn 
 ```
