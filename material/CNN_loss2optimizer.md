@@ -1,4 +1,4 @@
-## Loss
+##### Loss
 
 - [损失函数和梯度的关系](https://towardsdatascience.com/visualising-relationships-between-loss-activation-functions-and-gradient-descent-312a3963c9a5)
 
@@ -8,7 +8,27 @@
 > 
 > 两者之间的关系：**损失函数的值依赖于权重对输入的计算结果，损失函数对权重的梯度方向是函数值上升最快的方向。训练的目的是样本的损失值达到最小值，所以对权重按照负梯度方向进行更新以便减小损失值**。那么损失值的大小在训练中的作用是如何体现的呢？
 
-## Optimizer
+##### Optimizer
+
+###### 训练算法
+
+- [反向传播的计算流程](https://www.zybuluo.com/hanbingtao/note/476663)
+
+> 前向计算每个神经元的输出值；
+> 
+> 反向计算每个神经元的误差项，它是损失函数对神经元输入的偏导数；
+> 
+> 计算误差项对权重的梯度；
+
+- RNN的训练算法：[BPTT](https://zybuluo.com/hanbingtao/note/541458#rnn%E7%9A%84%E5%AE%9E%E7%8E%B0)
+
+> 前向计算每个神经元的输出值；
+> 
+> 反向计算每个神经元的**误差项**δj值，它是误差函数E对神经元j的**加权输入**netj的偏导数；
+> 
+> 计算每个权重的梯度。
+
+###### 优化器
 
 - 优化器的作用是通过损失函数降低训练误差，得到优化问题的数值解
 
@@ -136,7 +156,7 @@ AdaGrad算法在迭代后期可能较难找到有用解
 Adam算法使用了偏差修正。
 ```
 
-## LOSS Function
+##### LOSS Function
 
 - [fcn](https://github.com/shekkizh/FCN.tensorflow/blob/master/FCN.py)
   
