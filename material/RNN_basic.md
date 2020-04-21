@@ -57,7 +57,11 @@
 > 特点：可以表达某时间步的词基于文本序列中所有过去的词的条件概率;
 > 通过隐藏状态来存储之前时间步的信息,并非刚性地记忆所有固定长度的序列;
 > 
-> 缺点：当时间步数较大或者时间步较小时，循环神经网络的梯度较容易出现衰减或爆炸。(梯度爆炸的解决办法：裁剪梯度（clip gradient），裁剪后梯度的L_2范数不大于裁剪阈值theta；梯度衰减的解决办法：使用门控循环网络)
+> 缺点：当时间步数较大或者时间步较小时，循环神经网络的梯度较容易出现衰减或爆炸。(梯度爆炸的解决办法：裁剪梯度（clip gradient），裁剪后梯度的L_2范数不大于裁剪阈值theta；梯度衰减的解决办法：使用门控循环网络)。其中梯度衰减造成时间步靠前的权重几乎无法更新，所以对[长期记忆效果不好](https://towardsdatascience.com/illustrated-guide-to-lstms-and-gru-s-a-step-by-step-explanation-44e9eb85bf21)。
+> 
+> ```
+> So in recurrent neural networks, layers that get a small gradient update stops learning. Those are usually the earlier layers. So because these layers don’t learn, RNN’s can forget what it seen in longer sequences, thus having a short-term memory
+> ```
 > 
 > 组成：隐藏状态，其作用是捕捉截至当前时间步的序列的历史信息，可理解为多层感知器中的隐藏层
 > 
