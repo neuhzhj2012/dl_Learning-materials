@@ -1,3 +1,7 @@
+##### 相关文章：
+
+> [Illustrated Guide to LSTM’s and GRU’s: A step by step explanation](https://towardsdatascience.com/illustrated-guide-to-lstms-and-gru-s-a-step-by-step-explanation-44e9eb85bf21)
+
 ### 相关概念
 
 - 词频
