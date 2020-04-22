@@ -1,93 +1,4 @@
-##### 总结
-
-###### BFS and DFS
-
-> 当题目看不出任何规律，既不能用分治，贪心，也不能用动规时，这时候可试试万能方法——搜索
-
-- [两者的区别](https://www.zhihu.com/question/28549888/answer/41231930)
-
-> **dfs解决联通性问题，bfs解决最短路径问题。dfs基于栈结构完成，入栈，出栈，完成。bfs基于队列完成，入队列，出队列，完成。** bfs可以得到最优结果，dfs得到的多为次优结果。一般的，能用dfs解决的，都可以用bfs解决。dfs容易爆栈，bfs可以控制队列长度;dfs使用的内存少许bfs，前者一次访问一条路径，后者一次访问多条路径。
-
-- BFS
-
-> 用符合条件的状态初始化队列，然后对队列中的每个元素扩展其所有状态至队列为空为止。若扩展时无先后顺序，需要增加判重变量辅助计算；
-> 
-> ```
-> template<typename state_t>
-> vector<state_t> bfs(state_t &start, const vector<vector<int>> &grid) {
-> 	queue<state_t> q; // 队列
-> 	unordered_set<state_t> visited; // 判重
-> 	unordered_map<state_t, state_t> father; // 树
-> 	int level = 0; // 层次
-> 	bool found = false; // 是否找到目标
-> 	state_t target; // 符合条件的目标状态
-> 	
-> 	auto state_is_target = [&](const state_t &s) {return true; }; // 内敛函数，判断当前状态是否为所求目标
-> 	
-> 	auto state_extend = [&](const state_t &s) { // 扩展当前状态
-> 		vector<state_t> result;
-> 		// ...
-> 		return result;
-> 		};
-> 	start.count = 0;
-> 	q.push(start);
-> 	visited.insert(start);
-> 	while (!q.empty() && !found) {
-> 		const state_t state = q.front();
-> 		q.pop();
-> 		vector<state_t> new_states = state_extend(state);
-> 		for (auto iter = new_states.cbegin();iter != new_states.cend() && ! found; ++iter) {
-> 			const state_t new_state(*iter);
-> 			if (state_is_target(new_state)) {
-> 				found = true; //找到了
-> 				target = new_state;
-> 				father[new_state] = state;
-> 				break;
-> 			}
-> 			q.push(new_state);
-> 			// visited.insert(new_state); 必须放到state_extend() 里
-> 			father[new_state] = state;
-> 		}
-> 	}
-> 	if (found) {
-> 		return gen_path(father, target);
-> 		//return level + 1;
-> 	} else {
-> 		return vector<state_t>();
-> 		//return 0;
-> 	}
-> }
-> ```
-
-- DFS
-
-> 必须走到最深处才能判断是否得到一个解时，可用深搜，
-> 
-> dfs的解题思路：
-> 
-> 1. 判断终止条件(无新的状态可扩展)
-> 
-> 2. 判断收敛条件(找到一个可行解)
-> 
-> 3. 判断能否可加速运算：剪枝(提前判断不符合条件)和缓存(保存中间数据)
-> 
-> 4. 当前状态的处理逻辑并扩展状态(两者通常有关联：当前状态依赖于扩展的状态)
-> 
-> 5. 是否需要判重(和状态的扩展位置有关，指定方向的扩展一般不需要判重，因为不会出现重复，否则需要判重)
-> 
-> 回溯法=深搜+剪枝
-> 
-> 深度搜索在搜索过程中可对中间结果进行判断，所以比暴力搜索方法要快。
-> 
-> 深搜，是逻辑意义上的算法，可以用递归来实现，也可以用栈来实现。递归，是一种物理意义上的实现，它和迭代(iteration) 是对应的。可以说，递归一定是深搜，深搜不一定用递归。
-> 
-> 递归有两种加速策略，一种是剪枝(prunning)，对中间结果进行判断，提前返回；一种是缓存，缓存中间结果，防止重复计算，用空间换时间。
-> 
-> memorization(备忘录法)=递归+ 缓存，memorization也可使用迭代进行运算。
-
 贪心法：子问题可以决定父问题，如子串中含有重复字符，则父串中一定含有重复字符。动规中单个子问题只能影响父问题，不足以决定父问题。
-
-###### 示例
 
 2.1.4 Search in Rotated Sorted Array II
 
@@ -455,7 +366,7 @@
 
 11.2 Sqrt(x)
 
-> 求整数平方根的整数值。
+> 求正数的平方根的正数值。
 > 
 > 分析：
 > 
@@ -467,7 +378,7 @@
 > 
 > 分析：
 > 
-> 利用数组Last记录字符最近一次出现的位置，以便快速获得新子串的起点位置和判定子字符串的终点(重复字符的前一个位置)。每找到一个子串，则更新最长字符串的长度值。需要注意的是不要遗漏最后一个子串的长度(最后一个字符与最近开始的字符没有重复导致的，可理解为极端情况，即整个字符串没有重复字母)。
+> 利用数组记录字符是否出现过以及最近一次出现的位置，以便快速获得新子串的起点位置。
 
 13.7 Scramble String
 
