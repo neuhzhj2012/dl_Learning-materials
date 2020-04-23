@@ -15,47 +15,47 @@
 > ```
 > template<typename state_t>
 > vector<state_t> bfs(state_t &start, const vector<vector<int>> &grid) {
-> 	queue<state_t> q; // 队列
-> 	unordered_set<state_t> visited; // 判重
-> 	unordered_map<state_t, state_t> father; // 树
-> 	int level = 0; // 层次
-> 	bool found = false; // 是否找到目标
-> 	state_t target; // 符合条件的目标状态
-> 	
-> 	auto state_is_target = [&](const state_t &s) {return true; }; // 内敛函数，判断当前状态是否为所求目标
-> 	
-> 	auto state_extend = [&](const state_t &s) { // 扩展当前状态
-> 		vector<state_t> result;
-> 		// ...
-> 		return result;
-> 		};
-> 	start.count = 0;
-> 	q.push(start);
-> 	visited.insert(start);
-> 	while (!q.empty() && !found) {
-> 		const state_t state = q.front();
-> 		q.pop();
-> 		vector<state_t> new_states = state_extend(state);
-> 		for (auto iter = new_states.cbegin();iter != new_states.cend() && ! found; ++iter) {
-> 			const state_t new_state(*iter);
-> 			if (state_is_target(new_state)) {
-> 				found = true; //找到了
-> 				target = new_state;
-> 				father[new_state] = state;
-> 				break;
-> 			}
-> 			q.push(new_state);
-> 			// visited.insert(new_state); 必须放到state_extend() 里
-> 			father[new_state] = state;
-> 		}
-> 	}
-> 	if (found) {
-> 		return gen_path(father, target);
-> 		//return level + 1;
-> 	} else {
-> 		return vector<state_t>();
-> 		//return 0;
-> 	}
+>     queue<state_t> q; // 队列
+>     unordered_set<state_t> visited; // 判重
+>     unordered_map<state_t, state_t> father; // 树
+>     int level = 0; // 层次
+>     bool found = false; // 是否找到目标
+>     state_t target; // 符合条件的目标状态
+> 
+>     auto state_is_target = [&](const state_t &s) {return true; }; // 内敛函数，判断当前状态是否为所求目标
+> 
+>     auto state_extend = [&](const state_t &s) { // 扩展当前状态
+>         vector<state_t> result;
+>         // ...
+>         return result;
+>         };
+>     start.count = 0;
+>     q.push(start);
+>     visited.insert(start);
+>     while (!q.empty() && !found) {
+>         const state_t state = q.front();
+>         q.pop();
+>         vector<state_t> new_states = state_extend(state);
+>         for (auto iter = new_states.cbegin();iter != new_states.cend() && ! found; ++iter) {
+>             const state_t new_state(*iter);
+>             if (state_is_target(new_state)) {
+>                 found = true; //找到了
+>                 target = new_state;
+>                 father[new_state] = state;
+>                 break;
+>             }
+>             q.push(new_state);
+>             // visited.insert(new_state); 必须放到state_extend() 里
+>             father[new_state] = state;
+>         }
+>     }
+>     if (found) {
+>         return gen_path(father, target);
+>         //return level + 1;
+>     } else {
+>         return vector<state_t>();
+>         //return 0;
+>     }
 > }
 > ```
 
