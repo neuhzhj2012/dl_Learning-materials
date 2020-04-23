@@ -101,6 +101,8 @@ Faster-RCNN
 - 问题及解决方法
 
 > 1. proposal区域归一化问题
+> 
+> ROIPooling，该操作哦涉及到两次量化：proposal映射到该特征图时的坐标量化和最大化池化是区域大小的量化。所以对小目标而言会丢失很多特征信息。ROIAlign利用双线性插值的方法摒弃了两次量化过程。
 
 [YOLOV1](https://docs.google.com/presentation/d/1aeRvtKG21KHdD5lg6Hgyhx5rPq_ZOsGjG5rJ1HP7BbA/pub?start=false&loop=false&delayms=3000&slide=id.p)
 
