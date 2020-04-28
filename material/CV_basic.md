@@ -1,5 +1,7 @@
 ###### 相关文章
 
+>  [机器学习术语表](https://developers.google.com/machine-learning/glossary/#logits)
+> 
 > [零基础入门深度学习](https://www.zybuluo.com/hanbingtao/note/433855)
 
 ## 数学相关

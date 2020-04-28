@@ -31,6 +31,16 @@
 
 > 影响元素x的前向计算的所有可能输入区域 （可能大于输入的实际尺寸）叫做 x 的感受野（receptive field）
 
+[Logits](https://www.jianshu.com/p/d729b984c9d2)
+
+> $$
+> L(p)=ln(\frac{p}{1-p}), p = \frac{1}{1+e^{-x}}
+> $$
+> 
+> 数学公式如上，目的是将[0, 1]之间的数据映射到(-inf, inf)，其中0.5映射后的值为0， 小于0.5的值映射后小于0；该函数可看作sigmoid函数的反函数，即p=sigmoid(logit(p))。
+> 
+> 机器学习中该数值为网络原始(卷积)的输出值，为非归一化的数据。多分类时，将logits作为softmax的参数，得到每个类别的置信度。
+
 ###### [激活函数](https://en.wikipedia.org/wiki/Activation_function)
 
 ![img](../img/Model_activations.png)
