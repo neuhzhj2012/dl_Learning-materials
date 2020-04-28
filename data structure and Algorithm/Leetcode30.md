@@ -1,5 +1,45 @@
 贪心法：子问题可以决定父问题，如子串中含有重复字符，则父串中一定含有重复字符。动规中单个子问题只能影响父问题，不足以决定父问题。
 
+###### 数据类型
+
+- vector
+
+> 长度：vet.size()
+> 
+> 遍历：vet.begin(), vet.end(),
+> 
+> typedef vector<pair<int, int> >::const_iterator Iter;
+
+- list
+
+> //单链表的定义
+> 
+> struct ListNode {
+> int val;
+> ListNode *next;
+> ListNode(int x) : val(x), next(nullptr) { }
+> };
+
+- tree
+
+> // 树节点的定义
+> struct TreeNode {
+> int val;
+> TreeNode *left;
+> TreeNode *right;
+> TreeNode(int x) : val(x), left(nullptr), right(nullptr) { }
+> };
+
+- graph
+
+> //无向图的定义
+> 
+> struct UndirectedGraphNode {
+> int label;
+> vector<UndirectedGraphNode *> neighbors;
+> UndirectedGraphNode(int x) : label(x) {};
+> };
+
 2.1.4 Search in Rotated Sorted Array II
 
 > 包含重复元素的翻转数组中查找给定值的元素，若存在该元素则返回其下标，否则返回-1
@@ -164,7 +204,7 @@
 
 2.2.13 Reorder List
 
-> 对给定链表，按照位置[0, n-1, 1, n-2, …]重新排序，由于链表长度为奇偶时最后的下标不一致，故新链表的结束位置。空间复杂度为O(1)。
+> 对给定链表，按照位置[0, n-1, 1, n-2, …]重新排序。空间复杂度为O(1)。
 > 
 > 如{1，2，3，4}重新排序后为{1，4，2，3}
 > 
