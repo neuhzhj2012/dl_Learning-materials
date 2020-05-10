@@ -1,3 +1,7 @@
+##### 激活函数
+
+- leakyRelu
+
 ##### Loss
 
 - [损失函数和梯度的关系](https://towardsdatascience.com/visualising-relationships-between-loss-activation-functions-and-gradient-descent-312a3963c9a5)
