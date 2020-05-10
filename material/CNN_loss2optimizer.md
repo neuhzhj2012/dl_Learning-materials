@@ -16,7 +16,19 @@
 > 
 > ![img](../img/Pipline_CRNN.png)
 > 
-> CTC应用框架如上，经过卷积网络和循环网络得到时间序列，然后利用CTC进行解码，得到网络输入x对应输出序列的概率值，利用该概率的极大似然估计作为损失函数进行模型训练。CTCloss的反向传播公式的推导详见[该文章](http://xiaofengshi.com/2019/02/14/CTC%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/)。整体理解见该[文章](https://blog.csdn.net/hzhj2007/article/details/105961600)。
+> CTC本身是一种解码方式，包括Best path decoding，Beam search，Prefix Beam search。CTC loss应用于CRNN的整体框架如上，通过对rnn输出进行解码后得到输入label经过插入blank标签后序列的概率，利用该概率的极大似然估计对数的相反数作为损失函数进行模型训练。
+> 
+> ```
+> 1. 首先会将图像缩放到 32×W×1 大小
+> 2. 然后经过CNN后变为 1×（W/4）× 512
+> 3. 接着针对LSTM，设置 T=(W/4) ， D=512 ，即可将特征输入LSTM。
+> 4. LSTM有256个隐藏节点，经过LSTM后变为长度为T × nclass的向量，再经过softmax处理，列向量每个元素代表对应的字符预测概率，最后再将这个T的预测结果去冗余合并成一个完整识别结果即可。
+
+> ```
+> 
+> CTCloss的反向传播公式的推导详见[该文章](http://xiaofengshi.com/2019/02/14/CTC%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/)。整体理解见该[文章](https://blog.csdn.net/hzhj2007/article/details/105961600)。
+> 
+> ![img](../img/Loss_CTC_Bp.jpg)
 
 
 
