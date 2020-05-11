@@ -92,11 +92,57 @@
 
 ###### 数据类型
 
+- string
+
+> 定义：string s;
+> 
+> s.size()  表示容器的大小；
+> 
+> s.length()  表示容器的长度；
+> 
+> s.size()==s.length()   只是 表述不同
+> 
+> 遍历：s.end()
+> 
+> 增加：s + " ";
+> 
+> 删除：s.erase(s.end() - 1)
+
+- 数组
+
+> 定义：const int ASCII_MAX = 256;
+>             int count[ASCII_MAX];
+> 
+>             bool f[N + 1][N][N];  #多维数组
+> 
+> 初始化：fill(count, count+ ASCII_MAX, 0);
+> 
+>             fill_n(&f[0][0][0], (N + 1) * N * N, false); #多维数组
+> 
+> 遍历：for(int i = 0; i < count.size(); i++) val=count[i];
+
 - vector
 
+> 初始化：vector<bool> select(n, false);
+>                 fill_n(select.begin(), k, true);
+>                  vector<bool> f(s.length() + 1, false);
+>                 vector<vector<bool> > prev(s.length() + 1, vector<bool>(s.length()));
+>         for(int i = 0; i < prev.size();i++)
+>         {
+>             for(int j = 0; j < prev[0].size();j++)
+>             prev[i][j] = true;
+>         }
+> 
 > 长度：vet.size()
 > 
-> 遍历：vet.begin(), vet.end(),
+> 遍历：
+> 
+> 1. vet.begin(), vet.end()  //迭代器
+> 
+> 2. for(int i = 0; i < vet.size; i++) val=vet[i];  //下标
+> 
+> 3. std::vector<int>::const_iterator k=A.begin()
+>    *(k + i) = k[i] //混合迭代器与下标的访问
 > 
 > typedef vector<pair<int, int> >::const_iterator Iter;
 
@@ -109,6 +155,30 @@
 > ListNode *next;
 > ListNode(int x) : val(x), next(nullptr) { }
 > };
+
+- unordered_map
+
+> 定义：unordered_map<int, int> count_map;
+> 
+> 初始化：for_each(num.begin(), num.end(), [&count_map](int e) {
+>             if (count_map.find(e) != count_map.end())
+>                     count_map[e]++;
+>                 else
+>                      count_map[e] = 1;});
+> 
+> 遍历：count_map.begin(), count_map.end()
+
+- pair<int, int>
+
+> 定义：vector<pair<int, int> > elems;
+> 
+> 初始化：for_each(count_map.begin(), count_map.end(),
+>                             [&elems](const pair<int, int> &e) {
+>                 elems.push_back(e);
+>                 });
+> 
+> 访问：val = elems.first;
+>             num = elems.second;
 
 - tree
 
@@ -281,15 +351,17 @@
 > x+a = nr=(n -1)r + L-x     ——》x=(n-1)r + L-x-a ——》x = (n-1)r + r-a
 > 
 > 所以，**快慢指针相遇后，从相遇点到环起点的位置即为链表头到环入口的距离**。
-<<<<<<< HEAD
+> <<<<<<< HEAD
 
 2.2.13 Reorder List
 
 > 对给定链表，按照位置[0, n-1, 1, n-2, …]重新排序。空间复杂度为O(1)。
-=======
+> =======
+> 
 > 2.2.13 Reorder List
 > 对给定链表，按照位置[0, n-1, 1, n-2, …]重新排序，由于链表长度为奇偶时最后的下标不一致，故新链表的结束位置。空间复杂度为O(1)。
->>>>>>> 476d285fa0a3c2c5b5ec30547bcd78731da72092
+> 
+> > > > > > > 476d285fa0a3c2c5b5ec30547bcd78731da72092
 > 
 > 如{1，2，3，4}重新排序后为{1，4，2，3}
 > 
