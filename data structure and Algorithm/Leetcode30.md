@@ -145,6 +145,20 @@
 >    *(k + i) = k[i] //混合迭代器与下标的访问
 > 
 > typedef vector<pair<int, int> >::const_iterator Iter;
+> 
+> 增加元素：
+> 
+> vet.push_back(0);
+
+- stack
+
+> 初始化： stack<int> s;
+> 
+> 入栈：   s.push(0);
+> 
+> 遍历：int tmp = s.top();  //头元素
+> 
+>  出栈: s.pop();
 
 - list
 
